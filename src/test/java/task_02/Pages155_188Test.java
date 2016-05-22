@@ -2,6 +2,7 @@ package task_02;
 
 import org.junit.*;
 import task_02.db.DataSource;
+import task_02.util.ValidateRowgainstValues;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -179,13 +180,7 @@ public class Pages155_188Test {
                 "AND PRODUCT = PRODUCT_ID";
 
         ResultSet rs = stmt.executeQuery(sqlQuery);
-
-        while (rs.next()) {
-            assertEquals("112992", rs.getString("ORDER_NUM"));
-            assertEquals("760.00", rs.getString("AMOUNT"));
-            assertEquals("Size 2 Widget", rs.getString("DESCRIPTION"));
-            break;
-        }
+        ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"112992", "760.00", "Size 2 Widget"});
 
     }
 
