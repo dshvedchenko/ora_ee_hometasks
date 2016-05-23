@@ -27,9 +27,16 @@ public class ValidateRowgainstValues {
 
         for (int ix = 1; ix<= rsmd.getColumnCount(); ix++) {
             String expectedmsg = String.format("Column %s expected to have value %s, but have %s", rsmd.getColumnName(ix), expectedValues[ix-1], rs.getString(ix));
-            Assert.assertTrue(expectedmsg, expectedValues[ix-1].equals(rs.getString(ix)));
+            if (expectedValues[ix-1] == null) {
+                Assert.assertNull(expectedmsg,rs.getString(ix));
+            } else {
+                Assert.assertTrue(expectedmsg, expectedValues[ix - 1].equals(rs.getString(ix)));
+            }
         }
     }
 
 
+    public static void testNoRows(ResultSet rs) throws SQLException {
+        Assert.assertEquals("No Rows Expected",rs.next(), false);
+    }
 }
