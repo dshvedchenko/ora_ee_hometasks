@@ -52,15 +52,7 @@ public class Pages155_188Test {
                 "WHERE CUST = CUST_NUM";
 
         ResultSet rs = stmt.executeQuery(sqlQuery);
-
-        while (rs.next()) {
-            assertEquals("112989", rs.getString("ORDER_NUM"));
-            assertEquals(1458.00, rs.getFloat("AMOUNT"), 0);
-            assertEquals("Jones Mfg.", rs.getString("COMPANY"));
-            assertEquals(65000.00, rs.getFloat("CREDIT_LIMIT"), 0);
-            break;
-        }
-
+        ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"112989", "1458.00", "Jones Mfg.", "65000.00"});
     }
 
     @Test
@@ -71,14 +63,7 @@ public class Pages155_188Test {
                 "WHERE REP_OFFICE = OFFICE;";
 
         ResultSet rs = stmt.executeQuery(sqlQuery);
-
-        while (rs.next()) {
-            assertEquals("Sam Clark", rs.getString("NAME"));
-            assertEquals("New York", rs.getString("CITY"));
-            assertEquals("Eastern", rs.getString("REGION"));
-            break;
-        }
-
+        ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"Sam Clark","New York",  "Eastern"});
     }
 
     @Test
@@ -89,14 +74,7 @@ public class Pages155_188Test {
                 "WHERE MGR = EMPL_NUM;";
 
         ResultSet rs = stmt.executeQuery(sqlQuery);
-
-        while (rs.next()) {
-            assertEquals("Sam Clark", rs.getString("NAME"));
-            assertEquals("New York", rs.getString("CITY"));
-            assertEquals("VP Sales", rs.getString("TITLE"));
-            break;
-        }
-
+        ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"New York", "Sam Clark", "VP Sales"});
     }
 
     @Test
@@ -107,14 +85,7 @@ public class Pages155_188Test {
                 "REP_OFFICE = OFFICE;";
 
         ResultSet rs = stmt.executeQuery(sqlQuery);
-
-        while (rs.next()) {
-            assertEquals("Sam Clark", rs.getString("NAME"));
-            assertEquals("New York", rs.getString("CITY"));
-            assertEquals("Eastern", rs.getString("REGION"));
-            break;
-        }
-
+        ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"Sam Clark","New York",  "Eastern"});
     }
 
     @Test
@@ -125,14 +96,7 @@ public class Pages155_188Test {
                 "MGR = EMPL_NUM;";
 
         ResultSet rs = stmt.executeQuery(sqlQuery);
-
-        while (rs.next()) {
-            assertEquals("Sam Clark", rs.getString("NAME"));
-            assertEquals("New York", rs.getString("CITY"));
-            assertEquals("VP Sales", rs.getString("TITLE"));
-            break;
-        }
-
+        ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"New York", "Sam Clark", "VP Sales"});
     }
 
     @Test
@@ -143,14 +107,7 @@ public class Pages155_188Test {
                 "WHERE MGR = EMPL_NUM AND TARGET > 60000";
 
         ResultSet rs = stmt.executeQuery(sqlQuery);
-
-        while (rs.next()) {
-            assertEquals("Sam Clark", rs.getString("NAME"));
-            assertEquals("New York", rs.getString("CITY"));
-            assertEquals("VP Sales", rs.getString("TITLE"));
-            break;
-        }
-
+        ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"New York", "Sam Clark", "VP Sales"});
     }
 
     @Test
@@ -161,14 +118,7 @@ public class Pages155_188Test {
                 "MGR = EMPL_NUM WHERE TARGET > 60000;";
 
         ResultSet rs = stmt.executeQuery(sqlQuery);
-
-        while (rs.next()) {
-            assertEquals("Sam Clark", rs.getString("NAME"));
-            assertEquals("New York", rs.getString("CITY"));
-            assertEquals("VP Sales", rs.getString("TITLE"));
-            break;
-        }
-
+        ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"New York", "Sam Clark", "VP Sales"});
     }
 
     @Test
