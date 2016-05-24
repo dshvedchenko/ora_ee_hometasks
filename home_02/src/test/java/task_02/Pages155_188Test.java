@@ -404,4 +404,43 @@ public class Pages155_188Test {
         ResultSet rs = stmt.executeQuery(sqlQuery);
         ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"Dan Roberts", "12"});
     }
+
+    @Test
+    public void queryEmplOffCity_p182() throws SQLException {
+
+        String sqlQuery = "SELECT NAME, CITY FROM SALESREPS JOIN OFFICES ON REP_OFFICE = OFFICE";
+
+        ResultSet rs = stmt.executeQuery(sqlQuery);
+        ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"Sam Clark", "New York"});
+    }
+
+    @Test
+    public void queryEmplLeftOffCity_p183() throws SQLException {
+
+        String sqlQuery = "SELECT NAME, CITY FROM SALESREPS LEFT JOIN OFFICES ON REP_OFFICE = OFFICE";
+
+        ResultSet rs = stmt.executeQuery(sqlQuery);
+        ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"Dan Roberts", "Chicago"});
+    }
+
+    @Test
+    public void queryEMplOfficesRight_p187() throws SQLException {
+
+        String sqlQuery = "SELECT NAME, CITY FROM SALESREPS LEFT JOIN OFFICES ON REP_OFFICE = OFFICE";
+
+        ResultSet rs = stmt.executeQuery(sqlQuery);
+        ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"Dan Roberts", "Chicago"});
+    }
+
+    @Test
+    public void queryOfficeEmplLeft_p188() throws SQLException {
+
+        String sqlQuery = "SELECT CITY, NAME FROM OFFICES LEFT JOIN SALESREPS ON REP_OFFICE = OFFICE";
+
+        ResultSet rs = stmt.executeQuery(sqlQuery);
+        ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"New York", "Sam Clark"});
+    }
+
+
+
 }
