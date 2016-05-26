@@ -29,4 +29,13 @@ public class Office {
 
         return true;
     }
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = result * prime + getOFFICE();
+
+        return result;
+    }
+
 }

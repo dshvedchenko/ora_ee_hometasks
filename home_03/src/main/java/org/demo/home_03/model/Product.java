@@ -33,4 +33,14 @@ public class Product {
 
         return true;
     }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = result * prime + getMFR_ID().hashCode();
+        result = result * prime + getPRODUCT_ID().hashCode();
+
+        return result;
+    }
 }

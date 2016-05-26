@@ -34,4 +34,13 @@ public class Order {
         return true;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = result * prime + getORDER_NUM();
+
+        return result;
+    }
+
 }

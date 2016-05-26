@@ -26,5 +26,12 @@ public class Customer {
         return true;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = result * prime + getCUST_NUM();
 
+        return result;
+    }
 }
