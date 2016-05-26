@@ -2,6 +2,9 @@ package org.demo.home_03.model;
 
 import lombok.Data;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 /**
  * @author dshvedchenko on 5/26/16.
  */
@@ -12,6 +15,8 @@ public class Product {
     private String DESCRIPTION;
     private Double PRICE;
     private Integer QTY_ON_HAND;
+
+    Set<Order> Orders = new LinkedHashSet<>(0);
 
     @Override
     public boolean equals(Object obj) {

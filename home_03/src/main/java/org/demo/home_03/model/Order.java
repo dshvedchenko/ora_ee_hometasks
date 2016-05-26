@@ -12,10 +12,10 @@ import java.util.DoubleSummaryStatistics;
 public class Order {
     private Integer ORDER_NUM;
     private Date ORDER_DATE;
-    private Integer CUST;
-    private Integer REP;
-    private String MFR;
-    private String PRODUCT;
+    private Customer CUST;
+    private Salesrep REP;
+    //private String MFR;
+    private Product PRODUCT;
     private Integer QTY;
     private Double AMOUNT;
 

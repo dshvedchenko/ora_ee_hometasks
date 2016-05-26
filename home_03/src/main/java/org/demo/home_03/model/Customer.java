@@ -2,6 +2,9 @@ package org.demo.home_03.model;
 
 import lombok.Data;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 /**
  * @author dshvedchenko on 5/26/16.
  */
@@ -9,8 +12,10 @@ import lombok.Data;
 public class Customer {
     private Integer CUST_NUM;
     private String COMPANY;
-    private Integer CUST_REP;
+    private Salesrep CUST_REP;
     private Double CREDIT_LIMIT;
+
+    private Set<Order> orders = new LinkedHashSet<>(0);
 
     @Override
     public boolean equals(Object obj) {

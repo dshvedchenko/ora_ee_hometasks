@@ -2,6 +2,9 @@ package org.demo.home_03.model;
 
 import lombok.Data;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 /**
  * @author dshvedchenko on 5/26/16.
  */
@@ -10,9 +13,13 @@ public class Office {
     private Integer OFFICE;
     private String CITY;
     private String REGION;
-    private Integer MGR;
+    //private Integer MGR;
     private Double TARGET;
     private Double SALES;
+
+    private Salesrep MGR;
+
+    private Set<Salesrep> Salesreps = new LinkedHashSet<>(0);
 
     @Override
     public boolean equals(Object obj) {
