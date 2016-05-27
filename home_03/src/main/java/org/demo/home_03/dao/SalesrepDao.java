@@ -283,6 +283,130 @@ public class SalesrepDao {
         return salesReps;
     }
 
+    public Set<Salesrep> queryParentChildSelfJoinEmplMgrObeAlias_p175() {
+        Set<Salesrep> salesReps = new LinkedHashSet<>();
+        Statement statement = null;
+        String sqlQuery = "SELECT SALESREPS.EMPL_NUM, SALESREPS.NAME, MGRS.EMPL_NUM, MGRS.NAME\n" +
+                "FROM SALESREPS, SALESREPS MGRS\n" +
+                "WHERE SALESREPS.MANAGER = MGRS.EMPL_NUM";
+
+        try {
+            statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery (sqlQuery);
+            if (rs.next()) {
+                Salesrep salesrep = new Salesrep();
+                salesrep.setEMPL_NUM(rs.getInt("EMPL_NUM"));
+                salesrep.setNAME(rs.getString("NAME"));
+
+                Salesrep manager = new Salesrep();
+                manager.setEMPL_NUM(rs.getInt("MGRS.EMPL_NUM"));
+                manager.setNAME(rs.getString("MGRS.NAME"));
+                salesrep.setMANAGER(manager);
+                salesReps.add(salesrep);
+            }
+
+            rs.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeStatement(statement);
+        }
+
+        return salesReps;
+    }
+
+    public Set<Salesrep> queryParentChildSelfJoinEmplPlanOverMgrPlan_p175() {
+        Set<Salesrep> salesReps = new LinkedHashSet<>();
+        Statement statement = null;
+        String sqlQuery = "SELECT SALESREPS.EMPL_NUM,SALESREPS.NAME, SALESREPS.QUOTA,MGRS.EMPL_NUM,  MGRS.QUOTA\n" +
+                "FROM SALESREPS, SALESREPS MGRS\n" +
+                "WHERE SALESREPS.MANAGER = MGRS.EMPL_NUM\n" +
+                "AND SALESREPS.QUOTA > MGRS.QUOTA";
+
+
+        try {
+            statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery (sqlQuery);
+            if (rs.next()) {
+                Salesrep salesrep = new Salesrep();
+                salesrep.setEMPL_NUM(rs.getInt("SALESREPS.EMPL_NUM"));
+                salesrep.setNAME(rs.getString("SALESREPS.NAME"));
+                salesrep.setQUOTA(rs.getDouble("SALESREPS.QUOTA"));
+
+                Salesrep manager = new Salesrep();
+                manager.setEMPL_NUM(rs.getInt("MGRS.EMPL_NUM"));
+                manager.setQUOTA(rs.getDouble("MGRS.QUOTA"));
+                salesrep.setMANAGER(manager);
+                salesReps.add(salesrep);
+            }
+
+            rs.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeStatement(statement);
+        }
+
+        return salesReps;
+    }
+
+    public Set<Salesrep> queryParentChildSelfJoinEmplMgrDiffOffices_p176() {
+        Set<Salesrep> salesReps = new LinkedHashSet<>();
+        Statement statement = null;
+        String sqlQuery = "SELECT " +
+                "EMPS.EMPL_NUM" +
+                ", EMPS.NAME" +
+                ", EMP_OFFICE.OFFICE" +
+                ", EMP_OFFICE.CITY" +
+                ", MGRS.EMPL_NUM" +
+                ", MGRS.NAME" +
+                ", MGRS_OFFICE.OFFICE,  MGRS_OFFICE.CITY\n" +
+                "FROM SALESREPS EMPS, SALESREPS MGRS, OFFICES EMP_OFFICE, OFFICES MGRS_OFFICE\n" +
+                "WHERE EMPS.REP_OFFICE = EMP_OFFICE.OFFICE\n" +
+                "AND MGRS.REP_OFFICE = MGRS_OFFICE.OFFICE\n" +
+                "AND EMPS.MANAGER = MGRS.EMPL_NUM\n" +
+                "AND EMPS.REP_OFFICE <> MGRS.REP_OFFICE";
+
+
+        try {
+            statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery (sqlQuery);
+            if (rs.next()) {
+                Salesrep salesrep = new Salesrep();
+                salesrep.setEMPL_NUM(rs.getInt("EMPS.EMPL_NUM"));
+                salesrep.setNAME(rs.getString("EMPS.NAME"));
+
+                Office emplOffice = new Office();
+                emplOffice.setOFFICE(rs.getInt("EMP_OFFICE.OFFICE"));
+                emplOffice.setCITY(rs.getString("EMP_OFFICE.CITY"));
+                salesrep.setREP_OFFICE(emplOffice);
+
+                Salesrep manager = new Salesrep();
+                manager.setEMPL_NUM(rs.getInt("MGRS.EMPL_NUM"));
+                manager.setNAME(rs.getString("MGRS.NAME"));
+
+                Office mgrOffice = new Office();
+                mgrOffice.setOFFICE(rs.getInt("MGRS_OFFICE.OFFICE"));
+                mgrOffice.setCITY(rs.getString("MGRS_OFFICE.CITY"));
+                manager.setREP_OFFICE(mgrOffice);
+
+                salesrep.setMANAGER(manager);
+                salesReps.add(salesrep);
+            }
+
+            rs.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeStatement(statement);
+        }
+
+        return salesReps;
+    }
+
     void closeStatement(Statement statement) {
         if (statement != null) {
             try {

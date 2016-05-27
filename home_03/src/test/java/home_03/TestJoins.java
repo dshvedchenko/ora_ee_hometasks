@@ -359,50 +359,49 @@ public class TestJoins {
 
     @Test
     public void queryParentChildSelfJoinEmplMgr_p175() throws SQLException {
-
         Set<Salesrep> salesreps = new SalesrepDao(conn).queryParentChildSelfJoinEmplMgr_p175();
         assertTrue(salesreps.size() > 0);
-
         for(Salesrep salesrep: salesreps) {
             assertEquals("Dan Roberts", salesrep.getNAME());
             assertEquals("Bob Smith", salesrep.getMANAGER().getNAME());
             break;
         }
-    //    ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"Dan Roberts", "Bob Smith"});
     }
 
     @Test
     public void queryParentChildSelfJoinEmplMgrObeAlias_p175() throws SQLException {
-
-        String sqlQuery = "SELECT SALESREPS.NAME, MGRS.NAME\n" +
-                "FROM SALESREPS, SALESREPS MGRS\n" +
-                "WHERE SALESREPS.MANAGER = MGRS.EMPL_NUM";
-
-    //    ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"Dan Roberts", "Bob Smith"});
+        Set<Salesrep> salesreps = new SalesrepDao(conn).queryParentChildSelfJoinEmplMgrObeAlias_p175();
+        assertTrue(salesreps.size() > 0);
+        for(Salesrep salesrep: salesreps) {
+            assertEquals("Dan Roberts", salesrep.getNAME());
+            assertEquals("Bob Smith", salesrep.getMANAGER().getNAME());
+            break;
+        }
     }
 
     @Test
     public void queryParentChildSelfJoinEmplPlanOverMgrPlan_p175() throws SQLException {
-
-        String sqlQuery = "SELECT SALESREPS.NAME, SALESREPS.QUOTA, MGRS.QUOTA\n" +
-                "FROM SALESREPS, SALESREPS MGRS\n" +
-                "WHERE SALESREPS.MANAGER = MGRS.EMPL_NUM\n" +
-                "AND SALESREPS.QUOTA > MGRS.QUOTA";
-
-   //     ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"Dan Roberts", "300000.00", "200000.00"});
+        Set<Salesrep> salesreps = new SalesrepDao(conn).queryParentChildSelfJoinEmplPlanOverMgrPlan_p175();
+        assertTrue(salesreps.size() > 0);
+        for(Salesrep salesrep: salesreps) {
+            assertEquals("Dan Roberts", salesrep.getNAME());
+            assertEquals(300000.00, salesrep.getQUOTA(), 0.001);
+            assertEquals(200000.00, salesrep.getMANAGER().getQUOTA(), 0.001);
+            break;
+        }
     }
 
     @Test
     public void queryParentChildSelfJoinEmplMgrDiffOffices_p176() throws SQLException {
-
-        String sqlQuery = "SELECT EMPS.NAME, EMP_OFFICE.CITY, MGRS.NAME, MGRS_OFFICE.CITY\n" +
-                "FROM SALESREPS EMPS, SALESREPS MGRS, OFFICES EMP_OFFICE, OFFICES MGRS_OFFICE\n" +
-                "WHERE EMPS.REP_OFFICE = EMP_OFFICE.OFFICE\n" +
-                "AND MGRS.REP_OFFICE = MGRS_OFFICE.OFFICE\n" +
-                "AND EMPS.MANAGER = MGRS.EMPL_NUM\n" +
-                "AND EMPS.REP_OFFICE <> MGRS.REP_OFFICE";
-
-   //     ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"Bob Smith", "Chicago", "Sam Clark", "New York"});
+        Set<Salesrep> salesreps = new SalesrepDao(conn).queryParentChildSelfJoinEmplMgrDiffOffices_p176();
+        assertTrue(salesreps.size() > 0);
+        for(Salesrep salesrep: salesreps) {
+            assertEquals("Bob Smith", salesrep.getNAME());
+            assertEquals("Chicago", salesrep.getREP_OFFICE().getCITY());
+            assertEquals("Sam Clark", salesrep.getMANAGER().getNAME());
+            assertEquals("New York", salesrep.getMANAGER().getREP_OFFICE().getCITY());
+            break;
+        }
     }
 
     @Test
