@@ -194,59 +194,72 @@ public class TestJoins {
 
     @Test
     public void queryParentChildJoinMulti_p164() throws SQLException {
+        Set<Order> orders = new OrderDao(conn).getParentChildJoinMulti_p164();
 
-        String sqlQuery = "SELECT ORDER_NUM, AMOUNT , DESCRIPTION FROM ORDERS JOIN PRODUCTS " +
-                "ON ORDERS.MFR = PRODUCTS.MFR_ID " +
-                "AND ORDERS.PRODUCT = PRODUCTS.PRODUCT_ID;";
+        assertTrue(orders.size() > 0);
+
+        for(Order order : orders) {
+            assertTrue(112992 == order.getORDER_NUM());
+            assertEquals(760.00, order.getAMOUNT(), 0.00001);
+            assertEquals("Size 2 Widget", order.getPRODUCT().getDESCRIPTION());
+        }
 
    //     ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"112992", "760.00", "Size 2 Widget"});
     }
 
     @Test
     public void queryParentChildJoin3Table_p165() throws SQLException {
+        Set<Order> orders = new OrderDao(conn).getParentChildJoin3Table_p165();
 
-        String sqlQuery = "SELECT ORDER_NUM, AMOUNT, COMPANY, NAME\n" +
-                "FROM ORDERS , CUSTOMERS , SALESREPS\n" +
-                "WHERE CUST = CUST_NUM\n" +
-                "AND REP = EMPL_NUM\n" +
-                "AND AMOUNT > 25000.00;";
+        assertTrue(orders.size() > 0);
 
-    //    ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"112987", "27500.00", "Acme Mfg.", "Bill Adams"});
+        for(Order order : orders) {
+            assertTrue(112987 == order.getORDER_NUM());
+            assertEquals(27500.00, order.getAMOUNT(), 0.00001);
+            assertEquals("Acme Mfg.", order.getCUST().getCOMPANY());
+            assertEquals("Bill Adams", order.getREP().getNAME());
+        }
+
     }
 
     @Test
     public void queryParentChildJoin3TableAlt_p165() throws SQLException {
+        Set<Order> orders = new OrderDao(conn).getParentChildJoin3TableAlt_p165();
+        assertTrue(orders.size() > 0);
 
-        String sqlQuery = "SELECT ORDER_NUM, AMOUNT, COMPANY, NAME\n" +
-                "FROM ORDERS JOIN CUSTOMERS ON CUST = CUST_NUM \n " +
-                "JOIN SALESREPS ON REP = EMPL_NUM\n" +
-                "WHERE AMOUNT > 25000.00;";
-
-    //    ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"112987", "27500.00", "Acme Mfg.", "Bill Adams"});
+        for(Order order : orders) {
+            assertTrue(112987 == order.getORDER_NUM());
+            assertEquals(27500.00, order.getAMOUNT(), 0.00001);
+            assertEquals("Acme Mfg.", order.getCUST().getCOMPANY());
+            assertEquals("Bill Adams", order.getREP().getNAME());
+        }
     }
 
     @Test
     public void queryParentChildJoin3TableCustRep_p166() throws SQLException {
+        Set<Order> orders = new OrderDao(conn).getParentChildJoin3TableCustRep_p166();
+        assertTrue(orders.size() > 0);
 
-        String sqlQuery = "SELECT ORDER_NUM, AMOUNT, COMPANY, NAME\n" +
-                "FROM ORDERS JOIN CUSTOMERS ON CUST = CUST_NUM \n " +
-                "JOIN SALESREPS ON CUST_REP = EMPL_NUM\n" +
-                "WHERE AMOUNT > 25000.00;";
-
-   //     ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"113069", "31350.00", "Chen Associates", "Paul Cruz"});
+        for(Order order : orders) {
+            assertTrue(113069 == order.getORDER_NUM());
+            assertEquals(31350.00, order.getAMOUNT(), 0.00001);
+            assertEquals("Chen Associates", order.getCUST().getCOMPANY());
+            assertEquals("Paul Cruz", order.getREP().getNAME());
+        }
     }
 
     @Test
     public void queryParentChildJoin3TableCustRepOffice_p167() throws SQLException {
+        Set<Order> orders = new OrderDao(conn).getParentChildJoin3TableCustRepOffice_p167();
+        assertTrue(orders.size() > 0);
 
-        String sqlQuery = "SELECT ORDER_NUM, AMOUNT, COMPANY, NAME, CITY\n" +
-                "FROM ORDERS , CUSTOMERS , SALESREPS, OFFICES\n" +
-                "WHERE CUST = CUST_NUM\n" +
-                "AND CUST_REP = EMPL_NUM\n" +
-                "AND REP_OFFICE = OFFICE\n" +
-                "AND AMOUNT > 25000.00;\n";
-
-   //     ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"112961", "31350.00", "J.P. Sinclair", "Sam Clark", "New York"});
+        for(Order order : orders) {
+            assertTrue(112961 == order.getORDER_NUM());
+            assertEquals(31500.00, order.getAMOUNT(), 0.00001);
+            assertEquals("J.P. Sinclair", order.getCUST().getCOMPANY());
+            assertEquals("Sam Clark", order.getREP().getNAME());
+            assertEquals("New York", order.getREP().getREP_OFFICE().getCITY());
+        }
     }
 
     @Test
