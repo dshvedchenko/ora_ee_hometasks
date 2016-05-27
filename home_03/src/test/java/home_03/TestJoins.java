@@ -290,71 +290,84 @@ public class TestJoins {
     @Test
     public void queryParentChildJoinCityFactOverPlan_p171() throws SQLException {
 
-        String sqlQuery = "SELECT CITY , SALES\n" +
-                "FROM OFFICES\n" +
-                "WHERE SALES > TARGET";
+        Set<Office> offices = new OfficeDao(conn).getParentChildJoinCityFactOverPlan_p171();
+        assertTrue(offices.size() > 0);
 
-    //    ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"New York", "692637.00"});
+        for(Office office : offices) {
+            assertEquals("New York", office.getCITY());
+            assertEquals(692637.00, office.getSALES(), 0.001);
+
+            break;
+        }
     }
 
     @Test
     public void queryParentChildJoinEmplOv350000_p172() throws SQLException {
+        Set<Salesrep> salesreps = new SalesrepDao(conn).getParentChildJoinEmplOv350000_p172();
+        assertTrue(salesreps.size() > 0);
 
-        String sqlQuery = "SELECT NAME , SALES\n" +
-                "FROM SALESREPS\n" +
-                "WHERE SALES > 350000";
-
-    //    ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"Sue Smith", "474050.00"});
+        for(Salesrep salesrep: salesreps) {
+            assertEquals("Sue Smith", salesrep.getNAME());
+            assertEquals(474050.00, salesrep.getSALES(), 0.001);
+            break;
+        }
     }
 
     @Test
     public void queryParentChildJoinEmplOffices_p172() throws SQLException {
+        Set<Salesrep> salesreps = new SalesrepDao(conn).getParentChildJoinEmplOffices_p172();
+        assertTrue(salesreps.size() > 0);
 
-        String sqlQuery = "SELECT NAME , SALESREPS.SALES, CITY\n" +
-                "FROM SALESREPS, OFFICES\n" +
-                "WHERE REP_OFFICE = OFFICE";
-
-    //    ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"Sam Clark", "299912.00", "New York"});
+        for(Salesrep salesrep: salesreps) {
+            assertEquals("Sam Clark", salesrep.getNAME());
+            assertEquals(299912.00, salesrep.getSALES(), 0.001);
+            assertEquals("New York", salesrep.getREP_OFFICE().getCITY());
+            break;
+        }
     }
 
     @Test
     public void queryParentChildJoinAllCols_p173() throws SQLException {
+        Set<Salesrep> salesreps = new SalesrepDao(conn).getParentChildJoinAllCols_p173();
+        assertTrue(salesreps.size() > 0);
 
-        String sqlQuery = "SELECT *" +
-                "FROM SALESREPS, OFFICES\n" +
-                "WHERE REP_OFFICE = OFFICE";
+        for(Salesrep salesrep: salesreps) {
+            assertEquals("Sam Clark", salesrep.getNAME());
+            assertEquals(299912.00, salesrep.getSALES(), 0.001);
+            assertEquals("New York", salesrep.getREP_OFFICE().getCITY());
+            assertEquals(692637.00, salesrep.getREP_OFFICE().getSALES(), 0.001);
+            break;
+        }
 
     //    ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"106", "Sam Clark", "52", "11", "VP Sales", "2006-06-14", null, "275000.00", "299912.00", "11", "New York", "Eastern", "106", "575000.00", "692637.00"});
     }
 
     @Test
     public void queryParentChildJoinEmplAllWOffice_p173() throws SQLException {
+        Set<Salesrep> salesreps = new SalesrepDao(conn).queryParentChildJoinEmplAllWOffice_p173();
+        assertTrue(salesreps.size() > 0);
 
-        String sqlQuery = "SELECT SALESREPS.*, CITY, REGION\n" +
-                "FROM SALESREPS, OFFICES\n" +
-                "WHERE REP_OFFICE = OFFICE";
-
-    //    ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"106", "Sam Clark", "52", "11", "VP Sales", "2006-06-14", null, "275000.00", "299912.00",  "New York", "Eastern"});
+        for(Salesrep salesrep: salesreps) {
+            assertEquals("Sam Clark", salesrep.getNAME());
+            assertEquals(299912.00, salesrep.getSALES(), 0.001);
+            assertEquals("New York", salesrep.getREP_OFFICE().getCITY());
+            assertEquals("Eastern", salesrep.getREP_OFFICE().getREGION());
+            break;
+        }
     }
 
-    @Test
-    public void queryParentChildSelfJoin_p174() throws SQLException {
-
-        String sqlQuery = "SELECT NAME, NAME\n" +
-                "FROM SALESREPS\n" +
-                "WHERE MANAGER = EMPL_NUM";
-
-    //    ValidateRowgainstValues.testNoRows(rs);
-    //    ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"105", "Bill Adams"});
-    }
 
     @Test
     public void queryParentChildSelfJoinEmplMgr_p175() throws SQLException {
 
-        String sqlQuery = "SELECT EMPS.NAME, MGRS.NAME\n" +
-                "FROM SALESREPS EMPS, SALESREPS MGRS\n" +
-                "WHERE EMPS.MANAGER = MGRS.EMPL_NUM";
+        Set<Salesrep> salesreps = new SalesrepDao(conn).queryParentChildSelfJoinEmplMgr_p175();
+        assertTrue(salesreps.size() > 0);
 
+        for(Salesrep salesrep: salesreps) {
+            assertEquals("Dan Roberts", salesrep.getNAME());
+            assertEquals("Bob Smith", salesrep.getMANAGER().getNAME());
+            break;
+        }
     //    ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"Dan Roberts", "Bob Smith"});
     }
 

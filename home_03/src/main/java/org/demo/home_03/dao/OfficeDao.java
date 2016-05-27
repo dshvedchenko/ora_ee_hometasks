@@ -124,6 +124,36 @@ public class OfficeDao {
         return offices;
     }
 
+
+    public Set<Office> getParentChildJoinCityFactOverPlan_p171() {
+        Set<Office> offices = new LinkedHashSet<>(0);
+        Statement statement = null;
+        String sqlQuery = "SELECT OFFICE, CITY , SALES\n" +
+                "FROM OFFICES\n" +
+                "WHERE SALES > TARGET";
+
+        try {
+            statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery (sqlQuery);
+            if (rs.next()) {
+                Office office = new Office();
+                office.setOFFICE(rs.getInt("OFFICE"));
+                office.setCITY(rs.getString("CITY"));
+                office.setSALES(rs.getDouble("SALES"));
+                offices.add(office);
+            }
+
+            rs.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeStatement(statement);
+        }
+
+        return offices;
+    }
+
     void closeStatement(Statement statement) {
         if (statement != null) {
             try {

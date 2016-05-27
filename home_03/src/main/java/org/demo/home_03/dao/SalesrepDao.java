@@ -119,6 +119,170 @@ public class SalesrepDao {
         return salesReps;
     }
 
+    public Set<Salesrep> getParentChildJoinEmplOv350000_p172() {
+        Set<Salesrep> salesReps = new LinkedHashSet<>();
+        Statement statement = null;
+        String sqlQuery = "SELECT NAME , SALES, EMPL_NUM\n" +
+                "FROM SALESREPS\n" +
+                "WHERE SALES > 350000";
+
+        try {
+            statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery (sqlQuery);
+            if (rs.next()) {
+                Salesrep salesrep = new Salesrep();
+                salesrep.setEMPL_NUM(rs.getInt("EMPL_NUM"));
+                salesrep.setNAME(rs.getString("NAME"));
+                salesrep.setSALES(rs.getDouble("SALES"));
+                salesReps.add(salesrep);
+            }
+
+            rs.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeStatement(statement);
+        }
+
+        return salesReps;
+    }
+
+    public Set<Salesrep> getParentChildJoinEmplOffices_p172() {
+        Set<Salesrep> salesReps = new LinkedHashSet<>();
+        Statement statement = null;
+        String sqlQuery = "SELECT EMPL_NUM, NAME , SALESREPS.SALES, CITY, OFFICE\n" +
+                "FROM SALESREPS, OFFICES\n" +
+                "WHERE REP_OFFICE = OFFICE";
+
+        try {
+            statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery (sqlQuery);
+            if (rs.next()) {
+                Salesrep salesrep = new Salesrep();
+                salesrep.setEMPL_NUM(rs.getInt("EMPL_NUM"));
+                salesrep.setNAME(rs.getString("NAME"));
+                salesrep.setSALES(rs.getDouble("SALESREPS.SALES"));
+                Office office = new Office();
+                office.setOFFICE(rs.getInt("OFFICE"));
+                office.setCITY(rs.getString("CITY"));
+                salesrep.setREP_OFFICE(office);
+                salesReps.add(salesrep);
+            }
+
+            rs.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeStatement(statement);
+        }
+
+        return salesReps;
+    }
+
+    public Set<Salesrep> getParentChildJoinAllCols_p173() {
+        Set<Salesrep> salesReps = new LinkedHashSet<>();
+        Statement statement = null;
+        String sqlQuery = "SELECT *\n" +
+                "FROM SALESREPS, OFFICES\n" +
+                "WHERE REP_OFFICE = OFFICE";
+
+        try {
+            statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery (sqlQuery);
+            if (rs.next()) {
+                Salesrep salesrep = new Salesrep();
+                salesrep.setEMPL_NUM(rs.getInt("EMPL_NUM"));
+                salesrep.setNAME(rs.getString("NAME"));
+                salesrep.setSALES(rs.getDouble("SALESREPS.SALES"));
+                Office office = new Office();
+                office.setOFFICE(rs.getInt("OFFICE"));
+                office.setCITY(rs.getString("CITY"));
+                office.setSALES(rs.getDouble("OFFICES.SALES"));
+                salesrep.setREP_OFFICE(office);
+                salesReps.add(salesrep);
+            }
+
+            rs.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeStatement(statement);
+        }
+
+        return salesReps;
+    }
+
+    public Set<Salesrep> queryParentChildJoinEmplAllWOffice_p173() {
+        Set<Salesrep> salesReps = new LinkedHashSet<>();
+        Statement statement = null;
+        String sqlQuery = "SELECT SALESREPS.*, OFFICE, CITY, REGION\n" +
+                "FROM SALESREPS, OFFICES\n" +
+                "WHERE REP_OFFICE = OFFICE";
+
+        try {
+            statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery (sqlQuery);
+            if (rs.next()) {
+                Salesrep salesrep = new Salesrep();
+                salesrep.setEMPL_NUM(rs.getInt("EMPL_NUM"));
+                salesrep.setNAME(rs.getString("NAME"));
+                salesrep.setSALES(rs.getDouble("SALESREPS.SALES"));
+                Office office = new Office();
+                office.setOFFICE(rs.getInt("OFFICE"));
+                office.setCITY(rs.getString("CITY"));
+                office.setREGION(rs.getString("REGION"));
+                salesrep.setREP_OFFICE(office);
+                salesReps.add(salesrep);
+            }
+
+            rs.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeStatement(statement);
+        }
+
+        return salesReps;
+    }
+
+
+    public Set<Salesrep> queryParentChildSelfJoinEmplMgr_p175() {
+        Set<Salesrep> salesReps = new LinkedHashSet<>();
+        Statement statement = null;
+        String sqlQuery = "SELECT EMPS.EMPL_NUM, EMPS.NAME, MGRS.EMPL_NUM, MGRS.NAME\n" +
+                "FROM SALESREPS EMPS, SALESREPS MGRS\n" +
+                "WHERE EMPS.MANAGER = MGRS.EMPL_NUM";
+
+        try {
+            statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery (sqlQuery);
+            if (rs.next()) {
+                Salesrep salesrep = new Salesrep();
+                salesrep.setEMPL_NUM(rs.getInt("EMPS.EMPL_NUM"));
+                salesrep.setNAME(rs.getString("EMPS.NAME"));
+
+                Salesrep manager = new Salesrep();
+                manager.setEMPL_NUM(rs.getInt("MGRS.EMPL_NUM"));
+                manager.setNAME(rs.getString("MGRS.NAME"));
+                salesrep.setMANAGER(manager);
+                salesReps.add(salesrep);
+            }
+
+            rs.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeStatement(statement);
+        }
+
+        return salesReps;
+    }
+
     void closeStatement(Statement statement) {
         if (statement != null) {
             try {
