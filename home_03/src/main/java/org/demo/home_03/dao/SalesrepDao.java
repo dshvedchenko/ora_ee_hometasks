@@ -83,7 +83,41 @@ public class SalesrepDao {
         return salesReps;
     }
 
+    public Set<Salesrep> getParentChildJoinNotEq_p170() {
+        Set<Salesrep> salesReps = new LinkedHashSet<>();
+        Statement statement = null;
+        String sqlQuery = "SELECT EMPL_NUM, NAME , QUOTA,OFFICE, CITY, TARGET\n" +
+                "FROM SALESREPS , OFFICES\n" +
+                "WHERE QUOTA > TARGET ";
 
+        try {
+            statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery (sqlQuery);
+            if (rs.next()) {
+                Salesrep salesrep = new Salesrep();
+                salesrep.setEMPL_NUM(rs.getInt("EMPL_NUM"));
+                salesrep.setNAME(rs.getString("NAME"));
+                salesrep.setQUOTA(rs.getDouble("QUOTA"));
+
+                Office office = new Office();
+                office.setOFFICE(rs.getInt("OFFICE"));
+                office.setCITY(rs.getString("CITY"));
+                office.setTARGET(rs.getDouble("TARGET"));
+
+                salesrep.setREP_OFFICE(office);
+                salesReps.add(salesrep);
+            }
+
+            rs.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeStatement(statement);
+        }
+
+        return salesReps;
+    }
 
     void closeStatement(Statement statement) {
         if (statement != null) {

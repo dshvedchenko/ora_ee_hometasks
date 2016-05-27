@@ -350,6 +350,43 @@ public class OrderDao {
         return orders;
     }
 
+    public Set<Order> getParentChildJoinOrderHire_p169() {
+        Set<Order> orders = new LinkedHashSet<>(0);
+        Statement statement = null;
+        String sqlQuery = "SELECT ORDER_NUM, AMOUNT , ORDER_DATE , EMPL_NUM, NAME\n" +
+                "FROM ORDERS , SALESREPS\n" +
+                "WHERE ORDER_DATE = HIRE_DATE ;";
+
+        try {
+            statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery (sqlQuery);
+            if (rs.next()) {
+                Order order = new Order();
+                order.setORDER_NUM( rs.getInt("ORDER_NUM"));
+                order.setAMOUNT( rs.getDouble("AMOUNT") );
+                order.setORDER_DATE(rs.getDate("ORDER_DATE"));
+
+
+                Salesrep salesrep = new Salesrep();
+                salesrep.setEMPL_NUM(rs.getInt("EMPL_NUM"));
+                salesrep.setNAME(rs.getString("NAME"));
+
+                order.setREP(salesrep);
+                orders.add(order);
+            }
+
+            rs.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeStatement(statement);
+        }
+
+        return orders;
+    }
+
+
     void closeStatement(Statement statement) {
         if (statement != null) {
             try {

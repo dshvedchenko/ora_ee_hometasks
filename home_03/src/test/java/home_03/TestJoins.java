@@ -265,22 +265,26 @@ public class TestJoins {
     @Test
     public void queryParentChildJoinOrderHire_p169() throws SQLException {
 
-        String sqlQuery = "SELECT ORDER_NUM, AMOUNT , ORDER_DATE , NAME\n" +
-                "FROM ORDERS , SALESREPS\n" +
-                "WHERE ORDER_DATE = HIRE_DATE ;";
+        Set<Order> orders = new OrderDao(conn).getParentChildJoinOrderHire_p169();
+        assertTrue(orders.size() > 0);
 
-    //    ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"112968", "3978.00", "2007-10-12", "Larry Fitch"});
-
+        for(Order order : orders) {
+            assertTrue(112968 == order.getORDER_NUM());
+            assertEquals(3978.00, order.getAMOUNT(), 0.00001);
+            assertEquals("2007-10-12", order.getORDER_DATE().toString());
+            assertEquals("Larry Fitch", order.getREP().getNAME());
+        }
     }
 
     @Test
     public void queryParentChildJoinNotEq_p170() throws SQLException {
-
-        String sqlQuery = "SELECT NAME , QUOTA, CITY, TARGET\n" +
-                "FROM SALESREPS , OFFICES\n" +
-                "WHERE QUOTA > TARGET ";
-
-    //    ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"Sue Smith", "350000.00", "Denver", "300000.00"});
+        Set<Salesrep> salesreps = new SalesrepDao(conn).getParentChildJoinNotEq_p170();
+        for(Salesrep salesrep : salesreps) {
+            assertEquals("Sue Smith", salesrep.getNAME());
+            assertEquals(350000.00, salesrep.getQUOTA(), 0.000001);
+            assertEquals("Denver", salesrep.getREP_OFFICE().getCITY());
+            assertEquals(300000.00, salesrep.getREP_OFFICE().getTARGET(), 0.00001);
+        }
     }
 
     @Test
