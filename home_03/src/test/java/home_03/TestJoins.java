@@ -405,20 +405,14 @@ public class TestJoins {
     }
 
     @Test
-    @Ignore(value = "No birthdays table")
-    public void queryParentChildSelfJoinEmplBD_Aliases_p176() throws SQLException {
-
-        String sqlQuery = "";
-
-    //    ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{""});
-    }
-
-    @Test
     public void queryParentChildNamexCity_p179() throws SQLException {
-
-        String sqlQuery = "SELECT NAME, CITY FROM SALESREPS, OFFICES";
-
-   //     ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"Dan Roberts", "New York"});
+        Set<Salesrep> salesreps = new SalesrepDao(conn).queryParentChildNamexCity_p179();
+        assertTrue(salesreps.size() > 0);
+        for(Salesrep salesrep: salesreps) {
+            assertEquals("Dan Roberts", salesrep.getNAME());
+            assertEquals("New York", salesrep.getREP_OFFICE().getCITY());
+            break;
+        }
     }
 
     @Test

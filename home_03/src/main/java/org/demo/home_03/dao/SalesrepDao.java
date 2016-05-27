@@ -407,6 +407,39 @@ public class SalesrepDao {
         return salesReps;
     }
 
+    public Set<Salesrep> queryParentChildNamexCity_p179() {
+        Set<Salesrep> salesReps = new LinkedHashSet<>();
+        Statement statement = null;
+        String sqlQuery = "SELECT EMPL_NUM, NAME, OFFICE, CITY FROM SALESREPS, OFFICES";
+
+
+        try {
+            statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery (sqlQuery);
+            if (rs.next()) {
+                Salesrep salesrep = new Salesrep();
+                salesrep.setEMPL_NUM(rs.getInt("EMPL_NUM"));
+                salesrep.setNAME(rs.getString("NAME"));
+
+                Office emplOffice = new Office();
+                emplOffice.setOFFICE(rs.getInt("OFFICES.OFFICE"));
+                emplOffice.setCITY(rs.getString("OFFICES.CITY"));
+                salesrep.setREP_OFFICE(emplOffice);
+
+                salesReps.add(salesrep);
+            }
+
+            rs.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeStatement(statement);
+        }
+
+        return salesReps;
+    }
+
     void closeStatement(Statement statement) {
         if (statement != null) {
             try {
