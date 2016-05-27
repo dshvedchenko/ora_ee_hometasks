@@ -142,6 +142,7 @@ public class TestJoins {
     }
 
     @Test
+    @Ignore(value = "duplicated 162")
     public void queryParentChildJoinsCond_p163() throws SQLException {
 
         String sqlQuery = "SELECT CITY, NAME , TITLE\n" +
@@ -153,34 +154,42 @@ public class TestJoins {
 
     @Test
     public void queryParentChildJoinsMultiKey_p163() throws SQLException {
+        Set<Order> orders = new OrderDao(conn).getParentChildJoinsMultiKey_p163();
 
-        String sqlQuery = "SELECT ORDER_NUM, AMOUNT , DESCRIPTION\n" +
-                "FROM ORDERS, PRODUCTS\n" +
-                "WHERE MFR = MFR_ID\n" +
-                "AND PRODUCT = PRODUCT_ID";
+        assertTrue(orders.size() > 0);
 
-   //     ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"112992", "760.00", "Size 2 Widget"});
+        for(Order order : orders) {
+            assertTrue(112992 == order.getORDER_NUM());
+            assertEquals(760.00, order.getAMOUNT(), 0.00001);
+            assertEquals("Size 2 Widget", order.getPRODUCT().getDESCRIPTION());
+        }
 
     }
 
     @Test
     public void queryParentChildJoinsMultiKeyAlter_p163() throws SQLException {
+        Set<Order> orders = new OrderDao(conn).getParentChildJoinsMultiKeyAlter_p163();
 
-        String sqlQuery = "SELECT ORDER_NUM, AMOUNT , DESCRIPTION\n" +
-                "FROM ORDERS JOIN PRODUCTS\n" +
-                "ON MFR = MFR_ID\n" +
-                "AND PRODUCT = PRODUCT_ID";
+        assertTrue(orders.size() > 0);
 
-    //    ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"112992", "760.00", "Size 2 Widget"});
-
+        for(Order order : orders) {
+            assertTrue(112992 == order.getORDER_NUM());
+            assertEquals(760.00, order.getAMOUNT(), 0.00001);
+            assertEquals("Size 2 Widget", order.getPRODUCT().getDESCRIPTION());
+        }
     }
 
     @Test
     public void queryParentChildNaturalJoin_p164() throws SQLException {
+        Set<Order> orders = new OrderDao(conn).getParentChildNaturalJoin_p164();
 
-        String sqlQuery = "SELECT ORDER_NUM, AMOUNT , DESCRIPTION FROM ORDERS NATURAL JOIN PRODUCTS ;";
+        assertTrue(orders.size() > 0);
 
-   //     ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"112961", "31500.00", "Size 1 Wiget"});
+        for(Order order : orders) {
+            assertTrue(112961 == order.getORDER_NUM());
+            assertEquals(31500.00, order.getAMOUNT(), 0.00001);
+            assertEquals("Size 1 Wiget", order.getPRODUCT().getDESCRIPTION());
+        }
     }
 
     @Test
