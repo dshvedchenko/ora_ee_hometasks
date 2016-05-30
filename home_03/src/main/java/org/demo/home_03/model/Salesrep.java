@@ -2,6 +2,7 @@ package org.demo.home_03.model;
 
 import lombok.Data;
 
+import javax.persistence.*;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -10,22 +11,48 @@ import java.util.Set;
  * @author dshvedchenko on 5/26/16.
  */
 @Data
+@Entity
+@Table(name = "SALESREPS")
 public class Salesrep {
+    @Id
+    @Column (name = "EMPL_NUM")
     private Integer EMPL_NUM;
+
+    @Column (name = "NAME")
     private String NAME;
+
+    @Column (name = "AGE")
     private Integer AGE;
- //   private Integer REP_OFFICE;
+
+    @Column (name = "TITLE")
     private String TITLE;
+
+    @Column (name = "HIRE_DATE")
     private Date HIRE_DATE;
-  //  private Integer MANAGER;
+
+    @Column (name = "QUOTA")
     private Double QUOTA;
+
+    @Column (name = "SALES")
     private Double SALES;
 
+    @ManyToOne
+    @JoinColumn (
+            name = "MANAGER"
+    )
     private Salesrep MANAGER;
+
+    @ManyToOne
+    @JoinColumn (
+            name = "REP_OFFICE"
+    )
     private Office REP_OFFICE;
 
-    private Set<Order> orders = new LinkedHashSet<>(0);
-    private Set<Customer> customers = new LinkedHashSet<>(0);
+    @OneToMany(mappedBy = "REP")
+    private Set<Order> orders ;
+
+    @OneToMany(mappedBy = "CUST_REP")
+    private Set<Customer> customers ;
 
 
     @Override

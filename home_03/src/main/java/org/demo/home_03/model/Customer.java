@@ -2,6 +2,7 @@ package org.demo.home_03.model;
 
 import lombok.Data;
 
+import javax.persistence.*;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -9,13 +10,24 @@ import java.util.Set;
  * @author dshvedchenko on 5/26/16.
  */
 @Data
+@Entity
+@Table (name = "CUSTOMERS")
 public class Customer {
+    @Id
     private Integer CUST_NUM;
+
+    @Column (name = "COMPANY")
     private String COMPANY;
+
+    @ManyToOne
+    @JoinColumn (name = "CUST_REP")
     private Salesrep CUST_REP;
+
+    @Column (name = "CREDIT_LIMIT")
     private Double CREDIT_LIMIT;
 
-    private Set<Order> orders = new LinkedHashSet<>(0);
+    @OneToMany (mappedBy = "CUST")
+    private Set<Order> orders ;
 
     @Override
     public boolean equals(Object obj) {

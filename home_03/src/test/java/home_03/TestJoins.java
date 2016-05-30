@@ -152,60 +152,60 @@ public class TestJoins {
    //     ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"New York", "Sam Clark", "VP Sales"});
     }
 
-    @Test
-    public void queryParentChildJoinsMultiKey_p163() throws SQLException {
-        Set<Order> orders = new OrderDao(conn).getParentChildJoinsMultiKey_p163();
+//    @Test
+//    public void queryParentChildJoinsMultiKey_p163() throws SQLException {
+//        Set<Order> orders = new OrderDao(conn).getParentChildJoinsMultiKey_p163();
+//
+//        assertTrue(orders.size() > 0);
+//
+//        for(Order order : orders) {
+//            assertTrue(112992 == order.getORDER_NUM());
+//            assertEquals(760.00, order.getAMOUNT(), 0.00001);
+//            assertEquals("Size 2 Widget", order.getPRODUCT().getDESCRIPTION());
+//        }
+//
+//    }
 
-        assertTrue(orders.size() > 0);
-
-        for(Order order : orders) {
-            assertTrue(112992 == order.getORDER_NUM());
-            assertEquals(760.00, order.getAMOUNT(), 0.00001);
-            assertEquals("Size 2 Widget", order.getPRODUCT().getDESCRIPTION());
-        }
-
-    }
-
-    @Test
-    public void queryParentChildJoinsMultiKeyAlter_p163() throws SQLException {
-        Set<Order> orders = new OrderDao(conn).getParentChildJoinsMultiKeyAlter_p163();
-
-        assertTrue(orders.size() > 0);
-
-        for(Order order : orders) {
-            assertTrue(112992 == order.getORDER_NUM());
-            assertEquals(760.00, order.getAMOUNT(), 0.00001);
-            assertEquals("Size 2 Widget", order.getPRODUCT().getDESCRIPTION());
-        }
-    }
-
-    @Test
-    public void queryParentChildNaturalJoin_p164() throws SQLException {
-        Set<Order> orders = new OrderDao(conn).getParentChildNaturalJoin_p164();
-
-        assertTrue(orders.size() > 0);
-
-        for(Order order : orders) {
-            assertTrue(112961 == order.getORDER_NUM());
-            assertEquals(31500.00, order.getAMOUNT(), 0.00001);
-            assertEquals("Size 1 Wiget", order.getPRODUCT().getDESCRIPTION());
-        }
-    }
-
-    @Test
-    public void queryParentChildJoinMulti_p164() throws SQLException {
-        Set<Order> orders = new OrderDao(conn).getParentChildJoinMulti_p164();
-
-        assertTrue(orders.size() > 0);
-
-        for(Order order : orders) {
-            assertTrue(112992 == order.getORDER_NUM());
-            assertEquals(760.00, order.getAMOUNT(), 0.00001);
-            assertEquals("Size 2 Widget", order.getPRODUCT().getDESCRIPTION());
-        }
-
-   //     ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"112992", "760.00", "Size 2 Widget"});
-    }
+//    @Test
+//    public void queryParentChildJoinsMultiKeyAlter_p163() throws SQLException {
+//        Set<Order> orders = new OrderDao(conn).getParentChildJoinsMultiKeyAlter_p163();
+//
+//        assertTrue(orders.size() > 0);
+//
+//        for(Order order : orders) {
+//            assertTrue(112992 == order.getORDER_NUM());
+//            assertEquals(760.00, order.getAMOUNT(), 0.00001);
+//            assertEquals("Size 2 Widget", order.getPRODUCT().getDESCRIPTION());
+//        }
+//    }
+//
+//    @Test
+//    public void queryParentChildNaturalJoin_p164() throws SQLException {
+//        Set<Order> orders = new OrderDao(conn).getParentChildNaturalJoin_p164();
+//
+//        assertTrue(orders.size() > 0);
+//
+//        for(Order order : orders) {
+//            assertTrue(112961 == order.getORDER_NUM());
+//            assertEquals(31500.00, order.getAMOUNT(), 0.00001);
+//            assertEquals("Size 1 Wiget", order.getPRODUCT().getDESCRIPTION());
+//        }
+//    }
+//
+//    @Test
+//    public void queryParentChildJoinMulti_p164() throws SQLException {
+//        Set<Order> orders = new OrderDao(conn).getParentChildJoinMulti_p164();
+//
+//        assertTrue(orders.size() > 0);
+//
+//        for(Order order : orders) {
+//            assertTrue(112992 == order.getORDER_NUM());
+//            assertEquals(760.00, order.getAMOUNT(), 0.00001);
+//            assertEquals("Size 2 Widget", order.getPRODUCT().getDESCRIPTION());
+//        }
+//
+//   //     ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"112992", "760.00", "Size 2 Widget"});
+//    }
 
     @Test
     public void queryParentChildJoin3Table_p165() throws SQLException {

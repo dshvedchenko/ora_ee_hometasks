@@ -2,6 +2,8 @@ package org.demo.home_03.model;
 
 import lombok.Data;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -9,13 +11,22 @@ import java.util.Set;
  * @author dshvedchenko on 5/26/16.
  */
 @Data
-public class Product {
-    private String MFR_ID;
-    private String PRODUCT_ID;
+@Entity
+@Table( name = "PRODUCTS")
+public class Product implements Serializable {
+    @EmbeddedId
+    ProductPK productPK;
+
+    @Column (name = "DESCRIPTION")
     private String DESCRIPTION;
+
+    @Column (name = "PRICE")
     private Double PRICE;
+
+    @Column (name = "QTY_ON_HAND")
     private Integer QTY_ON_HAND;
 
+    @OneToMany (mappedBy = "PRODUCT")
     Set<Order> Orders = new LinkedHashSet<>(0);
 
     @Override
@@ -28,12 +39,12 @@ public class Product {
 
         Product inputObjext = (Product) obj;
 
-        if (inputObjext.getMFR_ID() == null) return false;
+        if (inputObjext.productPK.getMFR_ID() == null) return false;
 
-        if (inputObjext.getPRODUCT_ID() == null) return false;
+        if (inputObjext.productPK.getPRODUCT_ID() == null) return false;
 
-        if (inputObjext.getMFR_ID() != this.getMFR_ID()
-                || inputObjext.getPRODUCT_ID() != this.getPRODUCT_ID()) return false;
+        if (inputObjext.productPK.getMFR_ID() != this.productPK.getMFR_ID()
+                || inputObjext.productPK.getPRODUCT_ID() != this.productPK.getPRODUCT_ID()) return false;
 
 
         return true;
@@ -43,8 +54,8 @@ public class Product {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = result * prime + getMFR_ID().hashCode();
-        result = result * prime + getPRODUCT_ID().hashCode();
+        result = result * prime + productPK.getMFR_ID().hashCode();
+        result = result * prime + productPK.getPRODUCT_ID().hashCode();
 
         return result;
     }

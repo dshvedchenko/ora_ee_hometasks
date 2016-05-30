@@ -2,6 +2,7 @@ package org.demo.home_03.model;
 
 import lombok.Data;
 
+import javax.persistence.*;
 import java.util.Date;
 import java.util.DoubleSummaryStatistics;
 
@@ -9,13 +10,35 @@ import java.util.DoubleSummaryStatistics;
  * @author dshvedchenko on 5/26/16.
  */
 @Data
+@Entity
+@Table(name = "ORDERS")
 public class Order {
+    @Id
+    @Column (name ="ORDER_NUM")
     private Integer ORDER_NUM;
+
+    @Column (name = "ORDER_DATE")
     private Date ORDER_DATE;
+
+    @ManyToOne
+    @JoinColumn (
+            name = "CUST"
+    )
     private Customer CUST;
+
+    @ManyToOne
+    @JoinColumn (
+            name = "REP"
+    )
     private Salesrep REP;
-    //private String MFR;
+
+    @ManyToOne
+    @JoinColumns(
+            { @JoinColumn (name = "MFR", referencedColumnName = "MFR_ID")
+         , @JoinColumn (name = "PRODUCT", referencedColumnName = "PRODUCT_ID") }
+    )
     private Product PRODUCT;
+
     private Integer QTY;
     private Double AMOUNT;
 
