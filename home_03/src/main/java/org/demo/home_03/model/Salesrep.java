@@ -3,6 +3,7 @@ package org.demo.home_03.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -31,27 +32,29 @@ public class Salesrep {
     private Date HIRE_DATE;
 
     @Column (name = "QUOTA")
-    private Double QUOTA;
+    private BigDecimal QUOTA;
 
     @Column (name = "SALES")
-    private Double SALES;
+    private BigDecimal SALES;
 
-    @ManyToOne
+    @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn (
             name = "MANAGER"
+            ,referencedColumnName = "EMPL_NUM"
+            , foreignKey = @ForeignKey (name = "SALESREPS_ibfk_1")
     )
     private Salesrep MANAGER;
 
-    @ManyToOne
+    @ManyToOne (fetch = FetchType.LAZY, targetEntity = Office.class)
     @JoinColumn (
-            name = "REP_OFFICE"
+            name = "REP_OFFICE", referencedColumnName = "OFFICE", foreignKey = @ForeignKey (name = "SALESREPS_ibfk_2")
     )
     private Office REP_OFFICE;
 
-    @OneToMany(mappedBy = "REP")
+    @OneToMany(mappedBy = "REP", fetch = FetchType.LAZY)
     private Set<Order> orders ;
 
-    @OneToMany(mappedBy = "CUST_REP")
+    @OneToMany(mappedBy = "CUST_REP", fetch = FetchType.LAZY)
     private Set<Customer> customers ;
 
 

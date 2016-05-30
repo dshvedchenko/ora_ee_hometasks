@@ -41,7 +41,7 @@ public class OfficeDao {
                 salesrep.setEMPL_NUM(rs.getInt("EMPL_NUM"));
                 salesrep.setNAME(rs.getString("NAME"));
                 salesrep.setTITLE(rs.getString("TITLE"));
-                office.setMGR(salesrep);
+     //           office.setMGR(salesrep);
                 offices.add(office);
             }
 
@@ -75,7 +75,7 @@ public class OfficeDao {
                 salesrep.setEMPL_NUM(rs.getInt("EMPL_NUM"));
                 salesrep.setNAME(rs.getString("NAME"));
                 salesrep.setTITLE(rs.getString("TITLE"));
-                office.setMGR(salesrep);
+      //          office.setMGR(salesrep);
                 offices.add(office);
             }
 
@@ -109,7 +109,7 @@ public class OfficeDao {
                 salesrep.setEMPL_NUM(rs.getInt("EMPL_NUM"));
                 salesrep.setNAME(rs.getString("NAME"));
                 salesrep.setTITLE(rs.getString("TITLE"));
-                office.setMGR(salesrep);
+      //          office.setMGR(salesrep);
                 offices.add(office);
             }
 
@@ -139,7 +139,7 @@ public class OfficeDao {
                 Office office = new Office();
                 office.setOFFICE(rs.getInt("OFFICE"));
                 office.setCITY(rs.getString("CITY"));
-                office.setSALES(rs.getDouble("SALES"));
+                office.setSALES(rs.getBigDecimal("SALES"));
                 offices.add(office);
             }
 

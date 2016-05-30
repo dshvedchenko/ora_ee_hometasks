@@ -3,6 +3,7 @@ package org.demo.home_03.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.DoubleSummaryStatistics;
 
@@ -40,7 +41,7 @@ public class Order {
     private Product PRODUCT;
 
     private Integer QTY;
-    private Double AMOUNT;
+    private BigDecimal AMOUNT;
 
     @Override
     public boolean equals(Object obj) {

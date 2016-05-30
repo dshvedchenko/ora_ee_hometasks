@@ -3,6 +3,7 @@ package org.demo.home_03.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -24,7 +25,7 @@ public class Customer {
     private Salesrep CUST_REP;
 
     @Column (name = "CREDIT_LIMIT")
-    private Double CREDIT_LIMIT;
+    private BigDecimal CREDIT_LIMIT;
 
     @OneToMany (mappedBy = "CUST")
     private Set<Order> orders ;

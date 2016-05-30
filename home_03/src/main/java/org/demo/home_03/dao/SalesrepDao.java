@@ -97,12 +97,12 @@ public class SalesrepDao {
                 Salesrep salesrep = new Salesrep();
                 salesrep.setEMPL_NUM(rs.getInt("EMPL_NUM"));
                 salesrep.setNAME(rs.getString("NAME"));
-                salesrep.setQUOTA(rs.getDouble("QUOTA"));
+                salesrep.setQUOTA(rs.getBigDecimal("QUOTA"));
 
                 Office office = new Office();
                 office.setOFFICE(rs.getInt("OFFICE"));
                 office.setCITY(rs.getString("CITY"));
-                office.setTARGET(rs.getDouble("TARGET"));
+                office.setTARGET(rs.getBigDecimal("TARGET"));
 
                 salesrep.setREP_OFFICE(office);
                 salesReps.add(salesrep);
@@ -133,7 +133,7 @@ public class SalesrepDao {
                 Salesrep salesrep = new Salesrep();
                 salesrep.setEMPL_NUM(rs.getInt("EMPL_NUM"));
                 salesrep.setNAME(rs.getString("NAME"));
-                salesrep.setSALES(rs.getDouble("SALES"));
+                salesrep.setSALES(rs.getBigDecimal("SALES"));
                 salesReps.add(salesrep);
             }
 
@@ -162,7 +162,7 @@ public class SalesrepDao {
                 Salesrep salesrep = new Salesrep();
                 salesrep.setEMPL_NUM(rs.getInt("EMPL_NUM"));
                 salesrep.setNAME(rs.getString("NAME"));
-                salesrep.setSALES(rs.getDouble("SALESREPS.SALES"));
+                salesrep.setSALES(rs.getBigDecimal("SALESREPS.SALES"));
                 Office office = new Office();
                 office.setOFFICE(rs.getInt("OFFICE"));
                 office.setCITY(rs.getString("CITY"));
@@ -195,11 +195,11 @@ public class SalesrepDao {
                 Salesrep salesrep = new Salesrep();
                 salesrep.setEMPL_NUM(rs.getInt("EMPL_NUM"));
                 salesrep.setNAME(rs.getString("NAME"));
-                salesrep.setSALES(rs.getDouble("SALESREPS.SALES"));
+                salesrep.setSALES(rs.getBigDecimal("SALESREPS.SALES"));
                 Office office = new Office();
                 office.setOFFICE(rs.getInt("OFFICE"));
                 office.setCITY(rs.getString("CITY"));
-                office.setSALES(rs.getDouble("OFFICES.SALES"));
+                office.setSALES(rs.getBigDecimal("OFFICES.SALES"));
                 salesrep.setREP_OFFICE(office);
                 salesReps.add(salesrep);
             }
@@ -229,7 +229,7 @@ public class SalesrepDao {
                 Salesrep salesrep = new Salesrep();
                 salesrep.setEMPL_NUM(rs.getInt("EMPL_NUM"));
                 salesrep.setNAME(rs.getString("NAME"));
-                salesrep.setSALES(rs.getDouble("SALESREPS.SALES"));
+                salesrep.setSALES(rs.getBigDecimal("SALESREPS.SALES"));
                 Office office = new Office();
                 office.setOFFICE(rs.getInt("OFFICE"));
                 office.setCITY(rs.getString("CITY"));
@@ -332,11 +332,11 @@ public class SalesrepDao {
                 Salesrep salesrep = new Salesrep();
                 salesrep.setEMPL_NUM(rs.getInt("SALESREPS.EMPL_NUM"));
                 salesrep.setNAME(rs.getString("SALESREPS.NAME"));
-                salesrep.setQUOTA(rs.getDouble("SALESREPS.QUOTA"));
+                salesrep.setQUOTA(rs.getBigDecimal("SALESREPS.QUOTA"));
 
                 Salesrep manager = new Salesrep();
                 manager.setEMPL_NUM(rs.getInt("MGRS.EMPL_NUM"));
-                manager.setQUOTA(rs.getDouble("MGRS.QUOTA"));
+                manager.setQUOTA(rs.getBigDecimal("MGRS.QUOTA"));
                 salesrep.setMANAGER(manager);
                 salesReps.add(salesrep);
             }

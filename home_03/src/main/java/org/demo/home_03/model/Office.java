@@ -3,6 +3,7 @@ package org.demo.home_03.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -23,20 +24,18 @@ public class Office {
     @Column (name = "REGION")
     private String REGION;
 
-    @Column (name = "TARGET")
-    private Double TARGET;
 
-    @Column (name = "SALES")
-    private Double SALES;
-
-    @OneToOne
+    @ManyToOne( fetch = FetchType.LAZY, targetEntity = Salesrep.class, cascade = CascadeType.DETACH)
     @JoinColumn (
-            name = "MGR"
+            name = "MGR", referencedColumnName = "EMPL_NUM", nullable = true
     )
     private Salesrep MGR;
 
-    @OneToMany(mappedBy = "REP_OFFICE")
-    private Set<Salesrep> Salesreps;
+    @Column (name = "TARGET")
+    private BigDecimal TARGET;
+
+    @Column (name = "SALES")
+    private BigDecimal SALES;
 
     @Override
     public boolean equals(Object obj) {

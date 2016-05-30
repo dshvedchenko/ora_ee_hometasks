@@ -37,7 +37,7 @@ public class TestOrm1 {
 
     @Test
     public void getOfficesTest() {
-        List<Office> office = session.createCriteria(Office.class).list();
+        Office  office = session.get(Office.class,11);
         System.out.println(office);
     }
 

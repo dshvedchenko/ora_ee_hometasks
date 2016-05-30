@@ -32,10 +32,10 @@ public class OrderDao {
             if (rs.next()) {
                 Order order = new Order();
                 order.setORDER_NUM( rs.getInt("ORDER_NUM"));
-                order.setAMOUNT( rs.getDouble("AMOUNT") );
+                order.setAMOUNT( rs.getBigDecimal("AMOUNT") );
                 Customer customer = new Customer();
                 customer.setCOMPANY( rs.getString("COMPANY"));
-                customer.setCREDIT_LIMIT( rs.getDouble("CREDIT_LIMIT"));
+                customer.setCREDIT_LIMIT( rs.getBigDecimal("CREDIT_LIMIT"));
                 customer.setCUST_NUM(rs.getInt("CUST_NUM"));
                 order.setCUST(customer);
 
@@ -205,7 +205,7 @@ public class OrderDao {
             if (rs.next()) {
                 Order order = new Order();
                 order.setORDER_NUM( rs.getInt("ORDER_NUM"));
-                order.setAMOUNT( rs.getDouble("AMOUNT") );
+                order.setAMOUNT( rs.getBigDecimal("AMOUNT") );
                 Customer customer = new Customer();
                 customer.setCUST_NUM(rs.getInt("CUST_NUM"));
                 customer.setCOMPANY(rs.getString("COMPANY"));
@@ -243,7 +243,7 @@ public class OrderDao {
             if (rs.next()) {
                 Order order = new Order();
                 order.setORDER_NUM( rs.getInt("ORDER_NUM"));
-                order.setAMOUNT( rs.getDouble("AMOUNT") );
+                order.setAMOUNT( rs.getBigDecimal("AMOUNT") );
                 Customer customer = new Customer();
                 customer.setCUST_NUM(rs.getInt("CUST_NUM"));
                 customer.setCOMPANY(rs.getString("COMPANY"));
@@ -280,7 +280,7 @@ public class OrderDao {
             if (rs.next()) {
                 Order order = new Order();
                 order.setORDER_NUM( rs.getInt("ORDER_NUM"));
-                order.setAMOUNT( rs.getDouble("AMOUNT") );
+                order.setAMOUNT( rs.getBigDecimal("AMOUNT") );
                 Customer customer = new Customer();
                 customer.setCUST_NUM(rs.getInt("CUST_NUM"));
                 customer.setCOMPANY(rs.getString("COMPANY"));
@@ -319,7 +319,7 @@ public class OrderDao {
             if (rs.next()) {
                 Order order = new Order();
                 order.setORDER_NUM( rs.getInt("ORDER_NUM"));
-                order.setAMOUNT( rs.getDouble("AMOUNT") );
+                order.setAMOUNT( rs.getBigDecimal("AMOUNT") );
 
                 Customer customer = new Customer();
                 customer.setCUST_NUM(rs.getInt("CUST_NUM"));
@@ -363,7 +363,7 @@ public class OrderDao {
             if (rs.next()) {
                 Order order = new Order();
                 order.setORDER_NUM( rs.getInt("ORDER_NUM"));
-                order.setAMOUNT( rs.getDouble("AMOUNT") );
+                order.setAMOUNT( rs.getBigDecimal("AMOUNT") );
                 order.setORDER_DATE(rs.getDate("ORDER_DATE"));
 
 
