@@ -25,9 +25,9 @@ public class Office {
     private String REGION;
 
 
-    @ManyToOne( fetch = FetchType.LAZY, targetEntity = Salesrep.class, cascade = CascadeType.DETACH)
+    @ManyToOne( fetch = FetchType.EAGER)
     @JoinColumn (
-            name = "MGR", referencedColumnName = "EMPL_NUM", nullable = true
+            name = "MGR", referencedColumnName = "EMPL_NUM", nullable = false
     )
     private Salesrep MGR;
 
@@ -59,6 +59,11 @@ public class Office {
         result = result * prime + getOFFICE();
 
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return String.format( "Office  Num : %d\r\nCity : %s\r\nRegion : %s\r\nManager %s", getOFFICE(), getCITY(), getREGION(), getMGR().getNAME() );
     }
 
 }

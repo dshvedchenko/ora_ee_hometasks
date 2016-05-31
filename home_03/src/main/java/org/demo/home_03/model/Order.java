@@ -4,8 +4,8 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.DoubleSummaryStatistics;
 
 /**
  * @author dshvedchenko on 5/26/16.
@@ -15,28 +15,28 @@ import java.util.DoubleSummaryStatistics;
 @Table(name = "ORDERS")
 public class Order {
     @Id
-    @Column (name ="ORDER_NUM")
+    @Column(name = "ORDER_NUM")
     private Integer ORDER_NUM;
 
-    @Column (name = "ORDER_DATE")
+    @Column(name = "ORDER_DATE")
     private Date ORDER_DATE;
 
     @ManyToOne
-    @JoinColumn (
+    @JoinColumn(
             name = "CUST"
     )
     private Customer CUST;
 
     @ManyToOne
-    @JoinColumn (
+    @JoinColumn(
             name = "REP"
     )
     private Salesrep REP;
 
     @ManyToOne
     @JoinColumns(
-            { @JoinColumn (name = "MFR", referencedColumnName = "MFR_ID")
-         , @JoinColumn (name = "PRODUCT", referencedColumnName = "PRODUCT_ID") }
+            {@JoinColumn(name = "MFR", referencedColumnName = "MFR_ID")
+                    , @JoinColumn(name = "PRODUCT", referencedColumnName = "PRODUCT_ID")}
     )
     private Product PRODUCT;
 
@@ -65,6 +65,14 @@ public class Order {
         result = result * prime + getORDER_NUM();
 
         return result;
+    }
+
+
+    private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+    @Override
+    public synchronized String toString() {
+        return String.format("ORDER NUM : %d\r\nORDER_DATE %s\r\nCustomer : %s", getORDER_NUM(), sdf.format(getORDER_DATE()), getCUST().getCOMPANY());
     }
 
 }

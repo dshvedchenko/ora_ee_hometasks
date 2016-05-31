@@ -47,7 +47,10 @@ public class Salesrep {
 
     @ManyToOne (fetch = FetchType.LAZY, targetEntity = Office.class)
     @JoinColumn (
-            name = "REP_OFFICE", referencedColumnName = "OFFICE", foreignKey = @ForeignKey (name = "SALESREPS_ibfk_2")
+            name = "REP_OFFICE"
+            , referencedColumnName = "OFFICE"
+            , foreignKey = @ForeignKey (name = "SALESREPS_ibfk_2")
+            , nullable = true
     )
     private Office REP_OFFICE;
 
