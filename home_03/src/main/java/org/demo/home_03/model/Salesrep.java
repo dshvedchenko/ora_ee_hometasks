@@ -5,7 +5,6 @@ import lombok.Data;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
@@ -57,7 +56,7 @@ public class Salesrep {
     @OneToMany(mappedBy = "REP", fetch = FetchType.LAZY)
     private Set<Order> orders ;
 
-    @OneToMany(mappedBy = "CUST_REP", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "custRep", fetch = FetchType.LAZY)
     private Set<Customer> customers ;
 
 

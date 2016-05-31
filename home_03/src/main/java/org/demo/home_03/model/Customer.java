@@ -15,17 +15,17 @@ import java.util.Set;
 @Table (name = "CUSTOMERS")
 public class Customer {
     @Id
-    private Integer CUST_NUM;
+    private Integer custNum;
 
     @Column (name = "COMPANY")
-    private String COMPANY;
+    private String company;
 
     @ManyToOne
     @JoinColumn (name = "CUST_REP")
-    private Salesrep CUST_REP;
+    private Salesrep custRep;
 
     @Column (name = "CREDIT_LIMIT")
-    private BigDecimal CREDIT_LIMIT;
+    private BigDecimal creditLimit;
 
     @OneToMany (mappedBy = "CUST")
     private Set<Order> orders ;
@@ -39,7 +39,7 @@ public class Customer {
         if ( this.getClass() != getClass() ) return false;
         Customer inputObj = (Customer) obj;
 
-        if (this.getCUST_NUM() != inputObj.getCUST_NUM() ) return false;
+        if (this.getCustNum() != inputObj.getCustNum() ) return false;
 
         return true;
     }
@@ -48,7 +48,7 @@ public class Customer {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = result * prime + getCUST_NUM();
+        result = result * prime + getCustNum();
 
         return result;
     }

@@ -6,10 +6,12 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.type.StandardBasicTypes;
 import org.junit.*;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -87,5 +89,11 @@ public class TestOrm1 {
         Assert.assertEquals(2, salesrepList.size());
 
 
+    }
+
+    @Test
+    public void testSimpleSqlQUery() {
+        List arrayList = session.createSQLQuery("select * from OFFICES").addScalar("OFFICE", StandardBasicTypes.INTEGER).list();
+        System.out.println(arrayList);
     }
 }
