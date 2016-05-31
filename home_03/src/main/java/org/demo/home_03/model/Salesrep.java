@@ -16,25 +16,25 @@ import java.util.Set;
 public class Salesrep {
     @Id
     @Column (name = "EMPL_NUM")
-    private Integer EMPL_NUM;
+    private Integer emplNum;
 
     @Column (name = "NAME")
-    private String NAME;
+    private String name;
 
     @Column (name = "AGE")
-    private Integer AGE;
+    private Integer age;
 
     @Column (name = "TITLE")
-    private String TITLE;
+    private String title;
 
     @Column (name = "HIRE_DATE")
-    private Date HIRE_DATE;
+    private Date hireDate;
 
     @Column (name = "QUOTA")
-    private BigDecimal QUOTA;
+    private BigDecimal quota;
 
     @Column (name = "SALES")
-    private BigDecimal SALES;
+    private BigDecimal sales;
 
     @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn (
@@ -42,7 +42,7 @@ public class Salesrep {
             ,referencedColumnName = "EMPL_NUM"
             , foreignKey = @ForeignKey (name = "SALESREPS_ibfk_1")
     )
-    private Salesrep MANAGER;
+    private Salesrep manager;
 
     @ManyToOne (fetch = FetchType.LAZY, targetEntity = Office.class)
     @JoinColumn (
@@ -51,9 +51,9 @@ public class Salesrep {
             , foreignKey = @ForeignKey (name = "SALESREPS_ibfk_2")
             , nullable = true
     )
-    private Office REP_OFFICE;
+    private Office repOffice;
 
-    @OneToMany(mappedBy = "REP", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "rep", fetch = FetchType.LAZY)
     private Set<Order> orders ;
 
     @OneToMany(mappedBy = "custRep", fetch = FetchType.LAZY)
@@ -67,7 +67,7 @@ public class Salesrep {
         if (obj.getClass() != getClass()) return false;
 
         Salesrep inputObject = (Salesrep) obj;
-        if (this.getEMPL_NUM() != inputObject.getEMPL_NUM()) return false;
+        if (this.getEmplNum() != inputObject.getEmplNum()) return false;
 
         return true;
     }
@@ -76,7 +76,7 @@ public class Salesrep {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = result * prime + getEMPL_NUM();
+        result = result * prime + getEmplNum();
 
         return result;
     }

@@ -11,9 +11,7 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Set;
 
 import static org.junit.Assert.assertNotNull;
@@ -58,10 +56,10 @@ public class TestJoins {
         Set<Order> orders = new OrderDao(conn).getSimple_p158();
 
         for( Order order : orders) {
-            assertTrue(112989 == order.getORDER_NUM());
-            assertEquals(1458.00, order.getAMOUNT());
-            assertEquals("Jones Mfg.", order.getCUST().getCOMPANY());
-            assertEquals(65000.00, order.getCUST().getCREDIT_LIMIT());
+            assertTrue(112989 == order.getOrderNum());
+            assertEquals(1458.00, order.getAmount());
+            assertEquals("Jones Mfg.", order.getCust().getCompany());
+            assertEquals(65000.00, order.getCust().getCreditLimit());
 
             break;
         }
@@ -73,9 +71,9 @@ public class TestJoins {
         Set<Salesrep> salesreps = new SalesrepDao(conn).getParentChild_p159();
 
         for(Salesrep salesrep: salesreps) {
-            assertEquals("Sam Clark", salesrep.getNAME());
-            assertEquals("New York", salesrep.getREP_OFFICE().getCITY());
-            assertEquals("Eastern", salesrep.getREP_OFFICE().getREGION());
+            assertEquals("Sam Clark", salesrep.getName());
+            assertEquals("New York", salesrep.getRepOffice().getCity());
+            assertEquals("Eastern", salesrep.getRepOffice().getRegion());
 
             break;
         }
@@ -103,9 +101,9 @@ public class TestJoins {
         assertTrue(salesreps.size() > 0);
 
         for(Salesrep salesrep: salesreps) {
-            assertEquals("Sam Clark", salesrep.getNAME());
-            assertEquals("New York", salesrep.getREP_OFFICE().getCITY());
-            assertEquals("Eastern", salesrep.getREP_OFFICE().getREGION());
+            assertEquals("Sam Clark", salesrep.getName());
+            assertEquals("New York", salesrep.getRepOffice().getCity());
+            assertEquals("Eastern", salesrep.getRepOffice().getRegion());
 
             break;
         }
@@ -214,10 +212,10 @@ public class TestJoins {
         assertTrue(orders.size() > 0);
 
         for(Order order : orders) {
-            assertTrue(112987 == order.getORDER_NUM());
-            assertEquals(27500.00, order.getAMOUNT());
-            assertEquals("Acme Mfg.", order.getCUST().getCOMPANY());
-            assertEquals("Bill Adams", order.getREP().getNAME());
+            assertTrue(112987 == order.getOrderNum());
+            assertEquals(27500.00, order.getAmount());
+            assertEquals("Acme Mfg.", order.getCust().getCompany());
+            assertEquals("Bill Adams", order.getRep().getName());
         }
 
     }
@@ -228,10 +226,10 @@ public class TestJoins {
         assertTrue(orders.size() > 0);
 
         for(Order order : orders) {
-            assertTrue(112987 == order.getORDER_NUM());
-            assertEquals(27500.00, order.getAMOUNT());
-            assertEquals("Acme Mfg.", order.getCUST().getCOMPANY());
-            assertEquals("Bill Adams", order.getREP().getNAME());
+            assertTrue(112987 == order.getOrderNum());
+            assertEquals(27500.00, order.getAmount());
+            assertEquals("Acme Mfg.", order.getCust().getCompany());
+            assertEquals("Bill Adams", order.getRep().getName());
         }
     }
 
@@ -241,10 +239,10 @@ public class TestJoins {
         assertTrue(orders.size() > 0);
 
         for(Order order : orders) {
-            assertTrue(113069 == order.getORDER_NUM());
-            assertEquals(31350.00, order.getAMOUNT());
-            assertEquals("Chen Associates", order.getCUST().getCOMPANY());
-            assertEquals("Paul Cruz", order.getREP().getNAME());
+            assertTrue(113069 == order.getOrderNum());
+            assertEquals(31350.00, order.getAmount());
+            assertEquals("Chen Associates", order.getCust().getCompany());
+            assertEquals("Paul Cruz", order.getRep().getName());
         }
     }
 
@@ -254,11 +252,11 @@ public class TestJoins {
         assertTrue(orders.size() > 0);
 
         for(Order order : orders) {
-            assertTrue(112961 == order.getORDER_NUM());
-            assertEquals(31500.00, order.getAMOUNT());
-            assertEquals("J.P. Sinclair", order.getCUST().getCOMPANY());
-            assertEquals("Sam Clark", order.getREP().getNAME());
-            assertEquals("New York", order.getREP().getREP_OFFICE().getCITY());
+            assertTrue(112961 == order.getOrderNum());
+            assertEquals(31500.00, order.getAmount());
+            assertEquals("J.P. Sinclair", order.getCust().getCompany());
+            assertEquals("Sam Clark", order.getRep().getName());
+            assertEquals("New York", order.getRep().getRepOffice().getCity());
         }
     }
 
@@ -269,10 +267,10 @@ public class TestJoins {
         assertTrue(orders.size() > 0);
 
         for(Order order : orders) {
-            assertTrue(112968 == order.getORDER_NUM());
-            assertEquals(3978.00, order.getAMOUNT());
-            assertEquals("2007-10-12", order.getORDER_DATE().toString());
-            assertEquals("Larry Fitch", order.getREP().getNAME());
+            assertTrue(112968 == order.getOrderNum());
+            assertEquals(3978.00, order.getAmount());
+            assertEquals("2007-10-12", order.getOrderDate().toString());
+            assertEquals("Larry Fitch", order.getRep().getName());
         }
     }
 
@@ -280,10 +278,10 @@ public class TestJoins {
     public void queryParentChildJoinNotEq_p170() throws SQLException {
         Set<Salesrep> salesreps = new SalesrepDao(conn).getParentChildJoinNotEq_p170();
         for(Salesrep salesrep : salesreps) {
-            assertEquals("Sue Smith", salesrep.getNAME());
-            assertEquals(350000.00, salesrep.getQUOTA());
-            assertEquals("Denver", salesrep.getREP_OFFICE().getCITY());
-            assertEquals(300000.00, salesrep.getREP_OFFICE().getTARGET());
+            assertEquals("Sue Smith", salesrep.getName());
+            assertEquals(350000.00, salesrep.getQuota());
+            assertEquals("Denver", salesrep.getRepOffice().getCity());
+            assertEquals(300000.00, salesrep.getRepOffice().getTarget());
         }
     }
 
@@ -294,8 +292,8 @@ public class TestJoins {
         assertTrue(offices.size() > 0);
 
         for(Office office : offices) {
-            assertEquals("New York", office.getCITY());
-            assertEquals(692637.00, office.getSALES());
+            assertEquals("New York", office.getCity());
+            assertEquals(692637.00, office.getSales());
 
             break;
         }
@@ -307,8 +305,8 @@ public class TestJoins {
         assertTrue(salesreps.size() > 0);
 
         for(Salesrep salesrep: salesreps) {
-            assertEquals("Sue Smith", salesrep.getNAME());
-            assertEquals(474050.00, salesrep.getSALES());
+            assertEquals("Sue Smith", salesrep.getName());
+            assertEquals(474050.00, salesrep.getSales());
             break;
         }
     }
@@ -319,9 +317,9 @@ public class TestJoins {
         assertTrue(salesreps.size() > 0);
 
         for(Salesrep salesrep: salesreps) {
-            assertEquals("Sam Clark", salesrep.getNAME());
-            assertEquals(299912.00, salesrep.getSALES());
-            assertEquals("New York", salesrep.getREP_OFFICE().getCITY());
+            assertEquals("Sam Clark", salesrep.getName());
+            assertEquals(299912.00, salesrep.getSales());
+            assertEquals("New York", salesrep.getRepOffice().getCity());
             break;
         }
     }
@@ -332,10 +330,10 @@ public class TestJoins {
         assertTrue(salesreps.size() > 0);
 
         for(Salesrep salesrep: salesreps) {
-            assertEquals("Sam Clark", salesrep.getNAME());
-            assertEquals(299912.00, salesrep.getSALES());
-            assertEquals("New York", salesrep.getREP_OFFICE().getCITY());
-            assertEquals(692637.00, salesrep.getREP_OFFICE().getSALES());
+            assertEquals("Sam Clark", salesrep.getName());
+            assertEquals(299912.00, salesrep.getSales());
+            assertEquals("New York", salesrep.getRepOffice().getCity());
+            assertEquals(692637.00, salesrep.getRepOffice().getSales());
             break;
         }
 
@@ -348,10 +346,10 @@ public class TestJoins {
         assertTrue(salesreps.size() > 0);
 
         for(Salesrep salesrep: salesreps) {
-            assertEquals("Sam Clark", salesrep.getNAME());
-            assertEquals(299912.00, salesrep.getSALES());
-            assertEquals("New York", salesrep.getREP_OFFICE().getCITY());
-            assertEquals("Eastern", salesrep.getREP_OFFICE().getREGION());
+            assertEquals("Sam Clark", salesrep.getName());
+            assertEquals(299912.00, salesrep.getSales());
+            assertEquals("New York", salesrep.getRepOffice().getCity());
+            assertEquals("Eastern", salesrep.getRepOffice().getRegion());
             break;
         }
     }
@@ -362,8 +360,8 @@ public class TestJoins {
         Set<Salesrep> salesreps = new SalesrepDao(conn).queryParentChildSelfJoinEmplMgr_p175();
         assertTrue(salesreps.size() > 0);
         for(Salesrep salesrep: salesreps) {
-            assertEquals("Dan Roberts", salesrep.getNAME());
-            assertEquals("Bob Smith", salesrep.getMANAGER().getNAME());
+            assertEquals("Dan Roberts", salesrep.getName());
+            assertEquals("Bob Smith", salesrep.getManager().getName());
             break;
         }
     }
@@ -373,8 +371,8 @@ public class TestJoins {
         Set<Salesrep> salesreps = new SalesrepDao(conn).queryParentChildSelfJoinEmplMgrObeAlias_p175();
         assertTrue(salesreps.size() > 0);
         for(Salesrep salesrep: salesreps) {
-            assertEquals("Dan Roberts", salesrep.getNAME());
-            assertEquals("Bob Smith", salesrep.getMANAGER().getNAME());
+            assertEquals("Dan Roberts", salesrep.getName());
+            assertEquals("Bob Smith", salesrep.getManager().getName());
             break;
         }
     }
@@ -384,9 +382,9 @@ public class TestJoins {
         Set<Salesrep> salesreps = new SalesrepDao(conn).queryParentChildSelfJoinEmplPlanOverMgrPlan_p175();
         assertTrue(salesreps.size() > 0);
         for(Salesrep salesrep: salesreps) {
-            assertEquals("Dan Roberts", salesrep.getNAME());
-            assertEquals(300000.00, salesrep.getQUOTA());
-            assertEquals(200000.00, salesrep.getMANAGER().getQUOTA());
+            assertEquals("Dan Roberts", salesrep.getName());
+            assertEquals(300000.00, salesrep.getQuota());
+            assertEquals(200000.00, salesrep.getManager().getQuota());
             break;
         }
     }
@@ -396,10 +394,10 @@ public class TestJoins {
         Set<Salesrep> salesreps = new SalesrepDao(conn).queryParentChildSelfJoinEmplMgrDiffOffices_p176();
         assertTrue(salesreps.size() > 0);
         for(Salesrep salesrep: salesreps) {
-            assertEquals("Bob Smith", salesrep.getNAME());
-            assertEquals("Chicago", salesrep.getREP_OFFICE().getCITY());
-            assertEquals("Sam Clark", salesrep.getMANAGER().getNAME());
-            assertEquals("New York", salesrep.getMANAGER().getREP_OFFICE().getCITY());
+            assertEquals("Bob Smith", salesrep.getName());
+            assertEquals("Chicago", salesrep.getRepOffice().getCity());
+            assertEquals("Sam Clark", salesrep.getManager().getName());
+            assertEquals("New York", salesrep.getManager().getRepOffice().getCity());
             break;
         }
     }
@@ -409,8 +407,8 @@ public class TestJoins {
         Set<Salesrep> salesreps = new SalesrepDao(conn).queryParentChildNamexCity_p179();
         assertTrue(salesreps.size() > 0);
         for(Salesrep salesrep: salesreps) {
-            assertEquals("Dan Roberts", salesrep.getNAME());
-            assertEquals("New York", salesrep.getREP_OFFICE().getCITY());
+            assertEquals("Dan Roberts", salesrep.getName());
+            assertEquals("New York", salesrep.getRepOffice().getCity());
             break;
         }
     }

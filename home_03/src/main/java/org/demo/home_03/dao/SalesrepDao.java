@@ -29,13 +29,13 @@ public class SalesrepDao {
             ResultSet rs = statement.executeQuery (sqlQuery);
             if (rs.next()) {
                 Salesrep salesrep = new Salesrep();
-                salesrep.setEMPL_NUM(rs.getInt("EMPL_NUM"));
-                salesrep.setNAME(rs.getString("NAME"));
+                salesrep.setEmplNum(rs.getInt("EMPL_NUM"));
+                salesrep.setName(rs.getString("NAME"));
                 Office office = new Office();
-                office.setOFFICE(rs.getInt("OFFICE"));
-                office.setCITY(rs.getString("CITY"));
-                office.setREGION(rs.getString("REGION"));
-                salesrep.setREP_OFFICE(office);
+                office.setOffice(rs.getInt("OFFICE"));
+                office.setCity(rs.getString("CITY"));
+                office.setRegion(rs.getString("REGION"));
+                salesrep.setRepOffice(office);
                 salesReps.add(salesrep);
             }
 
@@ -62,13 +62,13 @@ public class SalesrepDao {
             ResultSet rs = statement.executeQuery (sqlQuery);
             if (rs.next()) {
                 Salesrep salesrep = new Salesrep();
-                salesrep.setEMPL_NUM(rs.getInt("EMPL_NUM"));
-                salesrep.setNAME(rs.getString("NAME"));
+                salesrep.setEmplNum(rs.getInt("EMPL_NUM"));
+                salesrep.setName(rs.getString("NAME"));
                 Office office = new Office();
-                office.setOFFICE(rs.getInt("OFFICE"));
-                office.setCITY(rs.getString("CITY"));
-                office.setREGION(rs.getString("REGION"));
-                salesrep.setREP_OFFICE(office);
+                office.setOffice(rs.getInt("OFFICE"));
+                office.setCity(rs.getString("CITY"));
+                office.setRegion(rs.getString("REGION"));
+                salesrep.setRepOffice(office);
                 salesReps.add(salesrep);
             }
 
@@ -95,16 +95,16 @@ public class SalesrepDao {
             ResultSet rs = statement.executeQuery (sqlQuery);
             if (rs.next()) {
                 Salesrep salesrep = new Salesrep();
-                salesrep.setEMPL_NUM(rs.getInt("EMPL_NUM"));
-                salesrep.setNAME(rs.getString("NAME"));
-                salesrep.setQUOTA(rs.getBigDecimal("QUOTA"));
+                salesrep.setEmplNum(rs.getInt("EMPL_NUM"));
+                salesrep.setName(rs.getString("NAME"));
+                salesrep.setQuota(rs.getBigDecimal("QUOTA"));
 
                 Office office = new Office();
-                office.setOFFICE(rs.getInt("OFFICE"));
-                office.setCITY(rs.getString("CITY"));
-                office.setTARGET(rs.getBigDecimal("TARGET"));
+                office.setOffice(rs.getInt("OFFICE"));
+                office.setCity(rs.getString("CITY"));
+                office.setTarget(rs.getBigDecimal("TARGET"));
 
-                salesrep.setREP_OFFICE(office);
+                salesrep.setRepOffice(office);
                 salesReps.add(salesrep);
             }
 
@@ -131,9 +131,9 @@ public class SalesrepDao {
             ResultSet rs = statement.executeQuery (sqlQuery);
             if (rs.next()) {
                 Salesrep salesrep = new Salesrep();
-                salesrep.setEMPL_NUM(rs.getInt("EMPL_NUM"));
-                salesrep.setNAME(rs.getString("NAME"));
-                salesrep.setSALES(rs.getBigDecimal("SALES"));
+                salesrep.setEmplNum(rs.getInt("EMPL_NUM"));
+                salesrep.setName(rs.getString("NAME"));
+                salesrep.setSales(rs.getBigDecimal("SALES"));
                 salesReps.add(salesrep);
             }
 
@@ -160,13 +160,13 @@ public class SalesrepDao {
             ResultSet rs = statement.executeQuery (sqlQuery);
             if (rs.next()) {
                 Salesrep salesrep = new Salesrep();
-                salesrep.setEMPL_NUM(rs.getInt("EMPL_NUM"));
-                salesrep.setNAME(rs.getString("NAME"));
-                salesrep.setSALES(rs.getBigDecimal("SALESREPS.SALES"));
+                salesrep.setEmplNum(rs.getInt("EMPL_NUM"));
+                salesrep.setName(rs.getString("NAME"));
+                salesrep.setSales(rs.getBigDecimal("SALESREPS.SALES"));
                 Office office = new Office();
-                office.setOFFICE(rs.getInt("OFFICE"));
-                office.setCITY(rs.getString("CITY"));
-                salesrep.setREP_OFFICE(office);
+                office.setOffice(rs.getInt("OFFICE"));
+                office.setCity(rs.getString("CITY"));
+                salesrep.setRepOffice(office);
                 salesReps.add(salesrep);
             }
 
@@ -193,14 +193,14 @@ public class SalesrepDao {
             ResultSet rs = statement.executeQuery (sqlQuery);
             if (rs.next()) {
                 Salesrep salesrep = new Salesrep();
-                salesrep.setEMPL_NUM(rs.getInt("EMPL_NUM"));
-                salesrep.setNAME(rs.getString("NAME"));
-                salesrep.setSALES(rs.getBigDecimal("SALESREPS.SALES"));
+                salesrep.setEmplNum(rs.getInt("EMPL_NUM"));
+                salesrep.setName(rs.getString("NAME"));
+                salesrep.setSales(rs.getBigDecimal("SALESREPS.SALES"));
                 Office office = new Office();
-                office.setOFFICE(rs.getInt("OFFICE"));
-                office.setCITY(rs.getString("CITY"));
-                office.setSALES(rs.getBigDecimal("OFFICES.SALES"));
-                salesrep.setREP_OFFICE(office);
+                office.setOffice(rs.getInt("OFFICE"));
+                office.setCity(rs.getString("CITY"));
+                office.setSales(rs.getBigDecimal("OFFICES.SALES"));
+                salesrep.setRepOffice(office);
                 salesReps.add(salesrep);
             }
 
@@ -227,14 +227,14 @@ public class SalesrepDao {
             ResultSet rs = statement.executeQuery (sqlQuery);
             if (rs.next()) {
                 Salesrep salesrep = new Salesrep();
-                salesrep.setEMPL_NUM(rs.getInt("EMPL_NUM"));
-                salesrep.setNAME(rs.getString("NAME"));
-                salesrep.setSALES(rs.getBigDecimal("SALESREPS.SALES"));
+                salesrep.setEmplNum(rs.getInt("EMPL_NUM"));
+                salesrep.setName(rs.getString("NAME"));
+                salesrep.setSales(rs.getBigDecimal("SALESREPS.SALES"));
                 Office office = new Office();
-                office.setOFFICE(rs.getInt("OFFICE"));
-                office.setCITY(rs.getString("CITY"));
-                office.setREGION(rs.getString("REGION"));
-                salesrep.setREP_OFFICE(office);
+                office.setOffice(rs.getInt("OFFICE"));
+                office.setCity(rs.getString("CITY"));
+                office.setRegion(rs.getString("REGION"));
+                salesrep.setRepOffice(office);
                 salesReps.add(salesrep);
             }
 
@@ -262,13 +262,13 @@ public class SalesrepDao {
             ResultSet rs = statement.executeQuery (sqlQuery);
             if (rs.next()) {
                 Salesrep salesrep = new Salesrep();
-                salesrep.setEMPL_NUM(rs.getInt("EMPS.EMPL_NUM"));
-                salesrep.setNAME(rs.getString("EMPS.NAME"));
+                salesrep.setEmplNum(rs.getInt("EMPS.EMPL_NUM"));
+                salesrep.setName(rs.getString("EMPS.NAME"));
 
                 Salesrep manager = new Salesrep();
-                manager.setEMPL_NUM(rs.getInt("MGRS.EMPL_NUM"));
-                manager.setNAME(rs.getString("MGRS.NAME"));
-                salesrep.setMANAGER(manager);
+                manager.setEmplNum(rs.getInt("MGRS.EMPL_NUM"));
+                manager.setName(rs.getString("MGRS.NAME"));
+                salesrep.setManager(manager);
                 salesReps.add(salesrep);
             }
 
@@ -295,13 +295,13 @@ public class SalesrepDao {
             ResultSet rs = statement.executeQuery (sqlQuery);
             if (rs.next()) {
                 Salesrep salesrep = new Salesrep();
-                salesrep.setEMPL_NUM(rs.getInt("EMPL_NUM"));
-                salesrep.setNAME(rs.getString("NAME"));
+                salesrep.setEmplNum(rs.getInt("EMPL_NUM"));
+                salesrep.setName(rs.getString("NAME"));
 
                 Salesrep manager = new Salesrep();
-                manager.setEMPL_NUM(rs.getInt("MGRS.EMPL_NUM"));
-                manager.setNAME(rs.getString("MGRS.NAME"));
-                salesrep.setMANAGER(manager);
+                manager.setEmplNum(rs.getInt("MGRS.EMPL_NUM"));
+                manager.setName(rs.getString("MGRS.NAME"));
+                salesrep.setManager(manager);
                 salesReps.add(salesrep);
             }
 
@@ -330,14 +330,14 @@ public class SalesrepDao {
             ResultSet rs = statement.executeQuery (sqlQuery);
             if (rs.next()) {
                 Salesrep salesrep = new Salesrep();
-                salesrep.setEMPL_NUM(rs.getInt("SALESREPS.EMPL_NUM"));
-                salesrep.setNAME(rs.getString("SALESREPS.NAME"));
-                salesrep.setQUOTA(rs.getBigDecimal("SALESREPS.QUOTA"));
+                salesrep.setEmplNum(rs.getInt("SALESREPS.EMPL_NUM"));
+                salesrep.setName(rs.getString("SALESREPS.NAME"));
+                salesrep.setQuota(rs.getBigDecimal("SALESREPS.QUOTA"));
 
                 Salesrep manager = new Salesrep();
-                manager.setEMPL_NUM(rs.getInt("MGRS.EMPL_NUM"));
-                manager.setQUOTA(rs.getBigDecimal("MGRS.QUOTA"));
-                salesrep.setMANAGER(manager);
+                manager.setEmplNum(rs.getInt("MGRS.EMPL_NUM"));
+                manager.setQuota(rs.getBigDecimal("MGRS.QUOTA"));
+                salesrep.setManager(manager);
                 salesReps.add(salesrep);
             }
 
@@ -375,24 +375,24 @@ public class SalesrepDao {
             ResultSet rs = statement.executeQuery (sqlQuery);
             if (rs.next()) {
                 Salesrep salesrep = new Salesrep();
-                salesrep.setEMPL_NUM(rs.getInt("EMPS.EMPL_NUM"));
-                salesrep.setNAME(rs.getString("EMPS.NAME"));
+                salesrep.setEmplNum(rs.getInt("EMPS.EMPL_NUM"));
+                salesrep.setName(rs.getString("EMPS.NAME"));
 
                 Office emplOffice = new Office();
-                emplOffice.setOFFICE(rs.getInt("EMP_OFFICE.OFFICE"));
-                emplOffice.setCITY(rs.getString("EMP_OFFICE.CITY"));
-                salesrep.setREP_OFFICE(emplOffice);
+                emplOffice.setOffice(rs.getInt("EMP_OFFICE.OFFICE"));
+                emplOffice.setCity(rs.getString("EMP_OFFICE.CITY"));
+                salesrep.setRepOffice(emplOffice);
 
                 Salesrep manager = new Salesrep();
-                manager.setEMPL_NUM(rs.getInt("MGRS.EMPL_NUM"));
-                manager.setNAME(rs.getString("MGRS.NAME"));
+                manager.setEmplNum(rs.getInt("MGRS.EMPL_NUM"));
+                manager.setName(rs.getString("MGRS.NAME"));
 
                 Office mgrOffice = new Office();
-                mgrOffice.setOFFICE(rs.getInt("MGRS_OFFICE.OFFICE"));
-                mgrOffice.setCITY(rs.getString("MGRS_OFFICE.CITY"));
-                manager.setREP_OFFICE(mgrOffice);
+                mgrOffice.setOffice(rs.getInt("MGRS_OFFICE.OFFICE"));
+                mgrOffice.setCity(rs.getString("MGRS_OFFICE.CITY"));
+                manager.setRepOffice(mgrOffice);
 
-                salesrep.setMANAGER(manager);
+                salesrep.setManager(manager);
                 salesReps.add(salesrep);
             }
 
@@ -418,13 +418,13 @@ public class SalesrepDao {
             ResultSet rs = statement.executeQuery (sqlQuery);
             if (rs.next()) {
                 Salesrep salesrep = new Salesrep();
-                salesrep.setEMPL_NUM(rs.getInt("EMPL_NUM"));
-                salesrep.setNAME(rs.getString("NAME"));
+                salesrep.setEmplNum(rs.getInt("EMPL_NUM"));
+                salesrep.setName(rs.getString("NAME"));
 
                 Office emplOffice = new Office();
-                emplOffice.setOFFICE(rs.getInt("OFFICES.OFFICE"));
-                emplOffice.setCITY(rs.getString("OFFICES.CITY"));
-                salesrep.setREP_OFFICE(emplOffice);
+                emplOffice.setOffice(rs.getInt("OFFICES.OFFICE"));
+                emplOffice.setCity(rs.getString("OFFICES.CITY"));
+                salesrep.setRepOffice(emplOffice);
 
                 salesReps.add(salesrep);
             }

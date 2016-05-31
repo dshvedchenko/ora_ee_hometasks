@@ -16,32 +16,32 @@ import java.util.Date;
 public class Order {
     @Id
     @Column(name = "ORDER_NUM")
-    private Integer ORDER_NUM;
+    private Integer orderNum;
 
     @Column(name = "ORDER_DATE")
-    private Date ORDER_DATE;
+    private Date orderDate;
 
     @ManyToOne
     @JoinColumn(
             name = "CUST"
     )
-    private Customer CUST;
+    private Customer cust;
 
     @ManyToOne
     @JoinColumn(
             name = "REP"
     )
-    private Salesrep REP;
+    private Salesrep rep;
 
     @ManyToOne
     @JoinColumns(
             {@JoinColumn(name = "MFR", referencedColumnName = "MFR_ID")
                     , @JoinColumn(name = "PRODUCT", referencedColumnName = "PRODUCT_ID")}
     )
-    private Product PRODUCT;
+    private Product product;
 
-    private Integer QTY;
-    private BigDecimal AMOUNT;
+    private Integer qty;
+    private BigDecimal amount;
 
     @Override
     public boolean equals(Object obj) {
@@ -53,7 +53,7 @@ public class Order {
 
         Order inputObj = (Order) obj;
 
-        if (this.getORDER_NUM() != inputObj.getORDER_NUM()) return false;
+        if (this.getOrderNum() != inputObj.getOrderNum()) return false;
 
         return true;
     }
@@ -62,7 +62,7 @@ public class Order {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = result * prime + getORDER_NUM();
+        result = result * prime + getOrderNum();
 
         return result;
     }
@@ -72,7 +72,7 @@ public class Order {
 
     @Override
     public synchronized String toString() {
-        return String.format("ORDER NUM : %d\r\nORDER_DATE %s\r\nCustomer : %s", getORDER_NUM(), sdf.format(getORDER_DATE()), getCUST().getCOMPANY());
+        return String.format("ORDER NUM : %d\r\nORDER_DATE %s\r\nCustomer : %s", getOrderNum(), sdf.format(getOrderDate()), getCust().getCompany());
     }
 
 }

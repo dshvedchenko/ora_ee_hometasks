@@ -10,10 +10,7 @@ import org.hibernate.type.StandardBasicTypes;
 import org.junit.*;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author dshvedchenko on 5/30/16.
@@ -46,17 +43,17 @@ public class TestOrm1 {
     public void getOfficeTest() {
         Office  office = session.get(Office.class,11);
         Assert.assertNotNull(office);
-        Assert.assertEquals("New York", office.getCITY());
-        Assert.assertEquals("Eastern", office.getREGION());
-        Assert.assertNotNull(office.getMGR());
-        Assert.assertEquals("Sam Clark", office.getMGR().getNAME());
+        Assert.assertEquals("New York", office.getCity());
+        Assert.assertEquals("Eastern", office.getRegion());
+        Assert.assertNotNull(office.getManager());
+        Assert.assertEquals("Sam Clark", office.getManager().getName());
     }
 
     @Test
     public void getSalesRep() {
         Salesrep salesrep = session.get(Salesrep.class, 101);
         Assert.assertNotNull(salesrep);
-        Assert.assertEquals("Dan Roberts", salesrep.getNAME());
+        Assert.assertEquals("Dan Roberts", salesrep.getName());
     }
 
     @Test
@@ -69,22 +66,22 @@ public class TestOrm1 {
     public void getOrder() {
         Order order = session.get(Order.class, 112961);
         Assert.assertNotNull(order);
-        Assert.assertEquals("2007-12-17",order.getORDER_DATE());
-        Assert.assertEquals("J.P. Sinclair", order.getCUST().getCOMPANY());
+        Assert.assertEquals("2007-12-17 00:00:00.0",order.getOrderDate().toString());
+        Assert.assertEquals("J.P. Sinclair", order.getCust().getCompany());
     }
 
     @Test
     public void getCustomer() {
         Customer customer = session.get(Customer.class,2101);
         Assert.assertNotNull(customer);
-        Assert.assertEquals("Jones Mfg.", customer.getCOMPANY());
-        Assert.assertEquals(0,customer.getCREDIT_LIMIT().compareTo(new BigDecimal(65000)));
+        Assert.assertEquals("Jones Mfg.", customer.getCompany());
+        Assert.assertEquals(0,customer.getCreditLimit().compareTo(new BigDecimal(65000)));
     }
 
     @Test
     public void getSalesRepsInNewYork() {
         Criteria criteria = session.createCriteria(Salesrep.class);
-        criteria.add(Restrictions.eq("REP_OFFICE", session.get(Office.class, 11) ));
+        criteria.add(Restrictions.eq("repOffice", session.get(Office.class, 11) ));
         List<Salesrep> salesrepList = criteria.list();
         Assert.assertEquals(2, salesrepList.size());
 

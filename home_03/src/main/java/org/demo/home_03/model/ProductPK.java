@@ -4,8 +4,6 @@ import lombok.Data;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.Entity;
-import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
@@ -16,22 +14,22 @@ import java.io.Serializable;
 @Data
 public class ProductPK implements Serializable {
     @Column (name ="MFR_ID", columnDefinition = "CHAR(3)")
-    protected String MFR_ID;
+    protected String mfrId;
     @Column (name = "PRODUCT_ID", columnDefinition = "CHAR(5)")
-    protected String PRODUCT_ID;
+    protected String productId;
 
     public ProductPK () {}
 
-    public ProductPK(String MFR_ID, String PRODUCT_ID) {
-        this.MFR_ID = MFR_ID;
-        this.PRODUCT_ID = PRODUCT_ID;
+    public ProductPK(String mfrId, String productId) {
+        this.mfrId = mfrId;
+        this.productId = productId;
     }
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = result * prime + getMFR_ID().hashCode();
-        result = result * prime + getPRODUCT_ID().hashCode();
+        result = result * prime + getMfrId().hashCode();
+        result = result * prime + getProductId().hashCode();
 
         return result;
     }
@@ -45,12 +43,12 @@ public class ProductPK implements Serializable {
 
         Product inputObjext = (Product) obj;
 
-        if (inputObjext.productPK.getMFR_ID() == null) return false;
+        if (inputObjext.productPK.getMfrId() == null) return false;
 
-        if (inputObjext.productPK.getPRODUCT_ID() == null) return false;
+        if (inputObjext.productPK.getProductId() == null) return false;
 
-        if (inputObjext.productPK.getMFR_ID() != this.getMFR_ID()
-                || inputObjext.productPK.getPRODUCT_ID() != this.getPRODUCT_ID()) return false;
+        if (inputObjext.productPK.getMfrId() != this.getMfrId()
+                || inputObjext.productPK.getProductId() != this.getProductId()) return false;
         return true;
     }
 

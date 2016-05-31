@@ -31,13 +31,13 @@ public class OrderDao {
             ResultSet rs = statement.executeQuery (sqlQuery);
             if (rs.next()) {
                 Order order = new Order();
-                order.setORDER_NUM( rs.getInt("ORDER_NUM"));
-                order.setAMOUNT( rs.getBigDecimal("AMOUNT") );
+                order.setOrderNum( rs.getInt("ORDER_NUM"));
+                order.setAmount( rs.getBigDecimal("AMOUNT") );
                 Customer customer = new Customer();
-                customer.setCOMPANY( rs.getString("COMPANY"));
-                customer.setCREDIT_LIMIT( rs.getBigDecimal("CREDIT_LIMIT"));
-                customer.setCUST_NUM(rs.getInt("CUST_NUM"));
-                order.setCUST(customer);
+                customer.setCompany( rs.getString("COMPANY"));
+                customer.setCreditLimit( rs.getBigDecimal("CREDIT_LIMIT"));
+                customer.setCustNum(rs.getInt("CUST_NUM"));
+                order.setCust(customer);
 
                 orders.add(order);
             }
@@ -204,16 +204,16 @@ public class OrderDao {
             ResultSet rs = statement.executeQuery (sqlQuery);
             if (rs.next()) {
                 Order order = new Order();
-                order.setORDER_NUM( rs.getInt("ORDER_NUM"));
-                order.setAMOUNT( rs.getBigDecimal("AMOUNT") );
+                order.setOrderNum( rs.getInt("ORDER_NUM"));
+                order.setAmount( rs.getBigDecimal("AMOUNT") );
                 Customer customer = new Customer();
-                customer.setCUST_NUM(rs.getInt("CUST_NUM"));
-                customer.setCOMPANY(rs.getString("COMPANY"));
-                order.setCUST(customer);
+                customer.setCustNum(rs.getInt("CUST_NUM"));
+                customer.setCompany(rs.getString("COMPANY"));
+                order.setCust(customer);
                 Salesrep salesrep = new Salesrep();
-                salesrep.setEMPL_NUM(rs.getInt("EMPL_NUM"));
-                salesrep.setNAME(rs.getString("NAME"));
-                order.setREP(salesrep);
+                salesrep.setEmplNum(rs.getInt("EMPL_NUM"));
+                salesrep.setName(rs.getString("NAME"));
+                order.setRep(salesrep);
                 orders.add(order);
             }
 
@@ -242,16 +242,16 @@ public class OrderDao {
             ResultSet rs = statement.executeQuery (sqlQuery);
             if (rs.next()) {
                 Order order = new Order();
-                order.setORDER_NUM( rs.getInt("ORDER_NUM"));
-                order.setAMOUNT( rs.getBigDecimal("AMOUNT") );
+                order.setOrderNum( rs.getInt("ORDER_NUM"));
+                order.setAmount( rs.getBigDecimal("AMOUNT") );
                 Customer customer = new Customer();
-                customer.setCUST_NUM(rs.getInt("CUST_NUM"));
-                customer.setCOMPANY(rs.getString("COMPANY"));
-                order.setCUST(customer);
+                customer.setCustNum(rs.getInt("CUST_NUM"));
+                customer.setCompany(rs.getString("COMPANY"));
+                order.setCust(customer);
                 Salesrep salesrep = new Salesrep();
-                salesrep.setEMPL_NUM(rs.getInt("EMPL_NUM"));
-                salesrep.setNAME(rs.getString("NAME"));
-                order.setREP(salesrep);
+                salesrep.setEmplNum(rs.getInt("EMPL_NUM"));
+                salesrep.setName(rs.getString("NAME"));
+                order.setRep(salesrep);
                 orders.add(order);
             }
 
@@ -279,16 +279,16 @@ public class OrderDao {
             ResultSet rs = statement.executeQuery (sqlQuery);
             if (rs.next()) {
                 Order order = new Order();
-                order.setORDER_NUM( rs.getInt("ORDER_NUM"));
-                order.setAMOUNT( rs.getBigDecimal("AMOUNT") );
+                order.setOrderNum( rs.getInt("ORDER_NUM"));
+                order.setAmount( rs.getBigDecimal("AMOUNT") );
                 Customer customer = new Customer();
-                customer.setCUST_NUM(rs.getInt("CUST_NUM"));
-                customer.setCOMPANY(rs.getString("COMPANY"));
-                order.setCUST(customer);
+                customer.setCustNum(rs.getInt("CUST_NUM"));
+                customer.setCompany(rs.getString("COMPANY"));
+                order.setCust(customer);
                 Salesrep salesrep = new Salesrep();
-                salesrep.setEMPL_NUM(rs.getInt("EMPL_NUM"));
-                salesrep.setNAME(rs.getString("NAME"));
-                order.setREP(salesrep);
+                salesrep.setEmplNum(rs.getInt("EMPL_NUM"));
+                salesrep.setName(rs.getString("NAME"));
+                order.setRep(salesrep);
                 orders.add(order);
             }
 
@@ -318,24 +318,24 @@ public class OrderDao {
             ResultSet rs = statement.executeQuery (sqlQuery);
             if (rs.next()) {
                 Order order = new Order();
-                order.setORDER_NUM( rs.getInt("ORDER_NUM"));
-                order.setAMOUNT( rs.getBigDecimal("AMOUNT") );
+                order.setOrderNum( rs.getInt("ORDER_NUM"));
+                order.setAmount( rs.getBigDecimal("AMOUNT") );
 
                 Customer customer = new Customer();
-                customer.setCUST_NUM(rs.getInt("CUST_NUM"));
-                customer.setCOMPANY(rs.getString("COMPANY"));
-                order.setCUST(customer);
+                customer.setCustNum(rs.getInt("CUST_NUM"));
+                customer.setCompany(rs.getString("COMPANY"));
+                order.setCust(customer);
 
                 Salesrep salesrep = new Salesrep();
-                salesrep.setEMPL_NUM(rs.getInt("EMPL_NUM"));
-                salesrep.setNAME(rs.getString("NAME"));
+                salesrep.setEmplNum(rs.getInt("EMPL_NUM"));
+                salesrep.setName(rs.getString("NAME"));
 
                 Office office = new Office();
-                office.setOFFICE(rs.getInt("OFFICE"));
-                office.setCITY(rs.getString("CITY"));
+                office.setOffice(rs.getInt("OFFICE"));
+                office.setCity(rs.getString("CITY"));
 
-                salesrep.setREP_OFFICE(office);
-                order.setREP(salesrep);
+                salesrep.setRepOffice(office);
+                order.setRep(salesrep);
                 orders.add(order);
             }
 
@@ -362,16 +362,16 @@ public class OrderDao {
             ResultSet rs = statement.executeQuery (sqlQuery);
             if (rs.next()) {
                 Order order = new Order();
-                order.setORDER_NUM( rs.getInt("ORDER_NUM"));
-                order.setAMOUNT( rs.getBigDecimal("AMOUNT") );
-                order.setORDER_DATE(rs.getDate("ORDER_DATE"));
+                order.setOrderNum( rs.getInt("ORDER_NUM"));
+                order.setAmount( rs.getBigDecimal("AMOUNT") );
+                order.setOrderDate(rs.getDate("ORDER_DATE"));
 
 
                 Salesrep salesrep = new Salesrep();
-                salesrep.setEMPL_NUM(rs.getInt("EMPL_NUM"));
-                salesrep.setNAME(rs.getString("NAME"));
+                salesrep.setEmplNum(rs.getInt("EMPL_NUM"));
+                salesrep.setName(rs.getString("NAME"));
 
-                order.setREP(salesrep);
+                order.setRep(salesrep);
                 orders.add(order);
             }
 

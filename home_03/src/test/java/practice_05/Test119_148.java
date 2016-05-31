@@ -5,8 +5,6 @@ import org.demo.home_03.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.transform.Transformers;
-import org.hibernate.type.StandardBasicTypes;
 import org.junit.*;
 
 import java.util.List;
@@ -42,12 +40,12 @@ public class Test119_148 {
     @Test
     public void simpleCriteriaTest() {
         List<Office> list = session.createCriteria(Office.class)
-                .add(Restrictions.like("CITY", "Chi%"))
-                .add(Restrictions.between("OFFICE", 1, 16))
+                .add(Restrictions.like("city", "Chi%"))
+                .add(Restrictions.between("office", 1, 16))
                 .list();
 
         Assert.assertNotNull(list);
-        Assert.assertEquals("Chicago", list.get(0).getCITY());
+        Assert.assertEquals("Chicago", list.get(0).getCity());
     }
 
 

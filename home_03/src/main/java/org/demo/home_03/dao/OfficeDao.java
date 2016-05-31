@@ -35,12 +35,12 @@ public class OfficeDao {
             ResultSet rs = statement.executeQuery (sqlQuery);
             if (rs.next()) {
                 Office office = new Office();
-                office.setOFFICE(rs.getInt("OFFICE"));
-                office.setCITY(rs.getString("CITY"));
+                office.setOffice(rs.getInt("OFFICE"));
+                office.setCity(rs.getString("CITY"));
                 Salesrep salesrep = new Salesrep();
-                salesrep.setEMPL_NUM(rs.getInt("EMPL_NUM"));
-                salesrep.setNAME(rs.getString("NAME"));
-                salesrep.setTITLE(rs.getString("TITLE"));
+                salesrep.setEmplNum(rs.getInt("EMPL_NUM"));
+                salesrep.setName(rs.getString("NAME"));
+                salesrep.setTitle(rs.getString("TITLE"));
      //           office.setMGR(salesrep);
                 offices.add(office);
             }
@@ -69,12 +69,12 @@ public class OfficeDao {
             ResultSet rs = statement.executeQuery (sqlQuery);
             if (rs.next()) {
                 Office office = new Office();
-                office.setOFFICE(rs.getInt("OFFICE"));
-                office.setCITY(rs.getString("CITY"));
+                office.setOffice(rs.getInt("OFFICE"));
+                office.setCity(rs.getString("CITY"));
                 Salesrep salesrep = new Salesrep();
-                salesrep.setEMPL_NUM(rs.getInt("EMPL_NUM"));
-                salesrep.setNAME(rs.getString("NAME"));
-                salesrep.setTITLE(rs.getString("TITLE"));
+                salesrep.setEmplNum(rs.getInt("EMPL_NUM"));
+                salesrep.setName(rs.getString("NAME"));
+                salesrep.setTitle(rs.getString("TITLE"));
       //          office.setMGR(salesrep);
                 offices.add(office);
             }
@@ -103,12 +103,12 @@ public class OfficeDao {
             ResultSet rs = statement.executeQuery (sqlQuery);
             if (rs.next()) {
                 Office office = new Office();
-                office.setOFFICE(rs.getInt("OFFICE"));
-                office.setCITY(rs.getString("CITY"));
+                office.setOffice(rs.getInt("OFFICE"));
+                office.setCity(rs.getString("CITY"));
                 Salesrep salesrep = new Salesrep();
-                salesrep.setEMPL_NUM(rs.getInt("EMPL_NUM"));
-                salesrep.setNAME(rs.getString("NAME"));
-                salesrep.setTITLE(rs.getString("TITLE"));
+                salesrep.setEmplNum(rs.getInt("EMPL_NUM"));
+                salesrep.setName(rs.getString("NAME"));
+                salesrep.setTitle(rs.getString("TITLE"));
       //          office.setMGR(salesrep);
                 offices.add(office);
             }
@@ -137,9 +137,9 @@ public class OfficeDao {
             ResultSet rs = statement.executeQuery (sqlQuery);
             if (rs.next()) {
                 Office office = new Office();
-                office.setOFFICE(rs.getInt("OFFICE"));
-                office.setCITY(rs.getString("CITY"));
-                office.setSALES(rs.getBigDecimal("SALES"));
+                office.setOffice(rs.getInt("OFFICE"));
+                office.setCity(rs.getString("CITY"));
+                office.setSales(rs.getBigDecimal("SALES"));
                 offices.add(office);
             }
 

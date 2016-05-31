@@ -19,16 +19,16 @@ public class Product implements Serializable {
     ProductPK productPK;
 
     @Column (name = "DESCRIPTION")
-    private String DESCRIPTION;
+    private String description;
 
     @Column (name = "PRICE")
-    private BigDecimal PRICE;
+    private BigDecimal price;
 
     @Column (name = "QTY_ON_HAND")
-    private Integer QTY_ON_HAND;
+    private Integer qtyOnHand;
 
-    @OneToMany (mappedBy = "PRODUCT")
-    Set<Order> Orders = new LinkedHashSet<>(0);
+    @OneToMany (mappedBy = "product")
+    Set<Order> orders = new LinkedHashSet<>(0);
 
     @Override
     public boolean equals(Object obj) {

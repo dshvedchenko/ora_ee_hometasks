@@ -16,26 +16,26 @@ import java.util.Set;
 public class Office {
 
     @Id
-    private Integer OFFICE;
+    private Integer office;
 
     @Column (name = "CITY")
-    private String CITY;
+    private String city;
 
     @Column (name = "REGION")
-    private String REGION;
+    private String region;
 
 
     @ManyToOne( fetch = FetchType.EAGER)
     @JoinColumn (
             name = "MGR", referencedColumnName = "EMPL_NUM", nullable = false
     )
-    private Salesrep MGR;
+    private Salesrep manager;
 
     @Column (name = "TARGET")
-    private BigDecimal TARGET;
+    private BigDecimal target;
 
     @Column (name = "SALES")
-    private BigDecimal SALES;
+    private BigDecimal sales;
 
     @Override
     public boolean equals(Object obj) {
@@ -48,7 +48,7 @@ public class Office {
 
         Office inputObject = (Office) obj;
 
-        if (this.getOFFICE() != inputObject.getOFFICE()) return false;
+        if (this.getOffice() != inputObject.getOffice()) return false;
 
         return true;
     }
@@ -56,14 +56,14 @@ public class Office {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = result * prime + getOFFICE();
+        result = result * prime + getOffice();
 
         return result;
     }
 
     @Override
     public String toString() {
-        return String.format( "Office  Num : %d\r\nCity : %s\r\nRegion : %s\r\nManager %s", getOFFICE(), getCITY(), getREGION(), getMGR().getNAME() );
+        return String.format( "Office  Num : %d\r\nCity : %s\r\nRegion : %s\r\nManager %s", getOffice(), getCity(), getRegion(), getManager().getName() );
     }
 
 }

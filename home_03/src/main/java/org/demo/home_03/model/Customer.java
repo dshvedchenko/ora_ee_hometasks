@@ -4,7 +4,6 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
@@ -15,6 +14,7 @@ import java.util.Set;
 @Table (name = "CUSTOMERS")
 public class Customer {
     @Id
+    @Column (name = "CUST_NUM")
     private Integer custNum;
 
     @Column (name = "COMPANY")
@@ -27,7 +27,7 @@ public class Customer {
     @Column (name = "CREDIT_LIMIT")
     private BigDecimal creditLimit;
 
-    @OneToMany (mappedBy = "CUST")
+    @OneToMany (mappedBy = "cust")
     private Set<Order> orders ;
 
     @Override
