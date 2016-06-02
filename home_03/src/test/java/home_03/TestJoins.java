@@ -65,19 +65,19 @@ public class TestJoins {
         }
     }
 
-    @Test
-    public void queryParentChild_p159() throws SQLException {
-
-        Set<Salesrep> salesreps = new SalesrepDao(conn).getParentChild_p159();
-
-        for(Salesrep salesrep: salesreps) {
-            assertEquals("Sam Clark", salesrep.getName());
-            assertEquals("New York", salesrep.getRepOffice().getCity());
-            assertEquals("Eastern", salesrep.getRepOffice().getRegion());
-
-            break;
-        }
-    }
+//    @Test
+//    public void queryParentChild_p159() throws SQLException {
+//
+//        Set<Salesrep> salesreps = new SalesrepDao(conn).getParentChild_p159();
+//
+//        for(Salesrep salesrep: salesreps) {
+//            assertEquals("Sam Clark", salesrep.getName());
+//            assertEquals("New York", salesrep.getRepOffice().getCity());
+//            assertEquals("Eastern", salesrep.getRepOffice().getRegion());
+//
+//            break;
+//        }
+//    }
 
 //    @Test
 //    public void queryParentChild_p161() throws SQLException {
@@ -94,20 +94,20 @@ public class TestJoins {
 //        }
 //    }
 
-    @Test
-    public void queryParentChildJoins_p161() throws SQLException {
-
-        Set<Salesrep> salesreps = new SalesrepDao(conn).getParentChild_p161();
-        assertTrue(salesreps.size() > 0);
-
-        for(Salesrep salesrep: salesreps) {
-            assertEquals("Sam Clark", salesrep.getName());
-            assertEquals("New York", salesrep.getRepOffice().getCity());
-            assertEquals("Eastern", salesrep.getRepOffice().getRegion());
-
-            break;
-        }
-    }
+//    @Test
+//    public void queryParentChildJoins_p161() throws SQLException {
+//
+//        Set<Salesrep> salesreps = new SalesrepDao(conn).getParentChild_p161();
+//        assertTrue(salesreps.size() > 0);
+//
+//        for(Salesrep salesrep: salesreps) {
+//            assertEquals("Sam Clark", salesrep.getName());
+//            assertEquals("New York", salesrep.getRepOffice().getCity());
+//            assertEquals("Eastern", salesrep.getRepOffice().getRegion());
+//
+//            break;
+//        }
+//    }
 
 //    @Test
 //    public void queryParentChildJoins_p162() throws SQLException {
@@ -274,144 +274,144 @@ public class TestJoins {
         }
     }
 
-    @Test
-    public void queryParentChildJoinNotEq_p170() throws SQLException {
-        Set<Salesrep> salesreps = new SalesrepDao(conn).getParentChildJoinNotEq_p170();
-        for(Salesrep salesrep : salesreps) {
-            assertEquals("Sue Smith", salesrep.getName());
-            assertEquals(350000.00, salesrep.getQuota());
-            assertEquals("Denver", salesrep.getRepOffice().getCity());
-            assertEquals(300000.00, salesrep.getRepOffice().getTarget());
-        }
-    }
+//    @Test
+//    public void queryParentChildJoinNotEq_p170() throws SQLException {
+//        Set<Salesrep> salesreps = new SalesrepDao(conn).getParentChildJoinNotEq_p170();
+//        for(Salesrep salesrep : salesreps) {
+//            assertEquals("Sue Smith", salesrep.getName());
+//            assertEquals(350000.00, salesrep.getQuota());
+//            assertEquals("Denver", salesrep.getRepOffice().getCity());
+//            assertEquals(300000.00, salesrep.getRepOffice().getTarget());
+//        }
+//    }
 
-    @Test
-    public void queryParentChildJoinCityFactOverPlan_p171() throws SQLException {
+//    @Test
+//    public void queryParentChildJoinCityFactOverPlan_p171() throws SQLException {
+//
+//        Set<Office> offices = new OfficeDao(conn).getParentChildJoinCityFactOverPlan_p171();
+//        assertTrue(offices.size() > 0);
+//
+//        for(Office office : offices) {
+//            assertEquals("New York", office.getCity());
+//            assertEquals(692637.00, office.getSales());
+//
+//            break;
+//        }
+//    }
 
-        Set<Office> offices = new OfficeDao(conn).getParentChildJoinCityFactOverPlan_p171();
-        assertTrue(offices.size() > 0);
+//    @Test
+//    public void queryParentChildJoinEmplOv350000_p172() throws SQLException {
+//        Set<Salesrep> salesreps = new SalesrepDao(conn).getParentChildJoinEmplOv350000_p172();
+//        assertTrue(salesreps.size() > 0);
+//
+//        for(Salesrep salesrep: salesreps) {
+//            assertEquals("Sue Smith", salesrep.getName());
+//            assertEquals(474050.00, salesrep.getSales());
+//            break;
+//        }
+//    }
 
-        for(Office office : offices) {
-            assertEquals("New York", office.getCity());
-            assertEquals(692637.00, office.getSales());
+//    @Test
+//    public void queryParentChildJoinEmplOffices_p172() throws SQLException {
+//        Set<Salesrep> salesreps = new SalesrepDao(conn).getParentChildJoinEmplOffices_p172();
+//        assertTrue(salesreps.size() > 0);
+//
+//        for(Salesrep salesrep: salesreps) {
+//            assertEquals("Sam Clark", salesrep.getName());
+//            assertEquals(299912.00, salesrep.getSales());
+//            assertEquals("New York", salesrep.getRepOffice().getCity());
+//            break;
+//        }
+//    }
 
-            break;
-        }
-    }
+//    @Test
+//    public void queryParentChildJoinAllCols_p173() throws SQLException {
+//        Set<Salesrep> salesreps = new SalesrepDao(conn).getParentChildJoinAllCols_p173();
+//        assertTrue(salesreps.size() > 0);
+//
+//        for(Salesrep salesrep: salesreps) {
+//            assertEquals("Sam Clark", salesrep.getName());
+//            assertEquals(299912.00, salesrep.getSales());
+//            assertEquals("New York", salesrep.getRepOffice().getCity());
+//            assertEquals(692637.00, salesrep.getRepOffice().getSales());
+//            break;
+//        }
+//
+//    //    ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"106", "Sam Clark", "52", "11", "VP Sales", "2006-06-14", null, "275000.00", "299912.00", "11", "New York", "Eastern", "106", "575000.00", "692637.00"});
+//    }
 
-    @Test
-    public void queryParentChildJoinEmplOv350000_p172() throws SQLException {
-        Set<Salesrep> salesreps = new SalesrepDao(conn).getParentChildJoinEmplOv350000_p172();
-        assertTrue(salesreps.size() > 0);
-
-        for(Salesrep salesrep: salesreps) {
-            assertEquals("Sue Smith", salesrep.getName());
-            assertEquals(474050.00, salesrep.getSales());
-            break;
-        }
-    }
-
-    @Test
-    public void queryParentChildJoinEmplOffices_p172() throws SQLException {
-        Set<Salesrep> salesreps = new SalesrepDao(conn).getParentChildJoinEmplOffices_p172();
-        assertTrue(salesreps.size() > 0);
-
-        for(Salesrep salesrep: salesreps) {
-            assertEquals("Sam Clark", salesrep.getName());
-            assertEquals(299912.00, salesrep.getSales());
-            assertEquals("New York", salesrep.getRepOffice().getCity());
-            break;
-        }
-    }
-
-    @Test
-    public void queryParentChildJoinAllCols_p173() throws SQLException {
-        Set<Salesrep> salesreps = new SalesrepDao(conn).getParentChildJoinAllCols_p173();
-        assertTrue(salesreps.size() > 0);
-
-        for(Salesrep salesrep: salesreps) {
-            assertEquals("Sam Clark", salesrep.getName());
-            assertEquals(299912.00, salesrep.getSales());
-            assertEquals("New York", salesrep.getRepOffice().getCity());
-            assertEquals(692637.00, salesrep.getRepOffice().getSales());
-            break;
-        }
-
-    //    ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"106", "Sam Clark", "52", "11", "VP Sales", "2006-06-14", null, "275000.00", "299912.00", "11", "New York", "Eastern", "106", "575000.00", "692637.00"});
-    }
-
-    @Test
-    public void queryParentChildJoinEmplAllWOffice_p173() throws SQLException {
-        Set<Salesrep> salesreps = new SalesrepDao(conn).queryParentChildJoinEmplAllWOffice_p173();
-        assertTrue(salesreps.size() > 0);
-
-        for(Salesrep salesrep: salesreps) {
-            assertEquals("Sam Clark", salesrep.getName());
-            assertEquals(299912.00, salesrep.getSales());
-            assertEquals("New York", salesrep.getRepOffice().getCity());
-            assertEquals("Eastern", salesrep.getRepOffice().getRegion());
-            break;
-        }
-    }
+//    @Test
+//    public void queryParentChildJoinEmplAllWOffice_p173() throws SQLException {
+//        Set<Salesrep> salesreps = new SalesrepDao(conn).queryParentChildJoinEmplAllWOffice_p173();
+//        assertTrue(salesreps.size() > 0);
+//
+//        for(Salesrep salesrep: salesreps) {
+//            assertEquals("Sam Clark", salesrep.getName());
+//            assertEquals(299912.00, salesrep.getSales());
+//            assertEquals("New York", salesrep.getRepOffice().getCity());
+//            assertEquals("Eastern", salesrep.getRepOffice().getRegion());
+//            break;
+//        }
+//    }
 
 
-    @Test
-    public void queryParentChildSelfJoinEmplMgr_p175() throws SQLException {
-        Set<Salesrep> salesreps = new SalesrepDao(conn).queryParentChildSelfJoinEmplMgr_p175();
-        assertTrue(salesreps.size() > 0);
-        for(Salesrep salesrep: salesreps) {
-            assertEquals("Dan Roberts", salesrep.getName());
-            assertEquals("Bob Smith", salesrep.getManager().getName());
-            break;
-        }
-    }
+//    @Test
+//    public void queryParentChildSelfJoinEmplMgr_p175() throws SQLException {
+//        Set<Salesrep> salesreps = new SalesrepDao(conn).queryParentChildSelfJoinEmplMgr_p175();
+//        assertTrue(salesreps.size() > 0);
+//        for(Salesrep salesrep: salesreps) {
+//            assertEquals("Dan Roberts", salesrep.getName());
+//            assertEquals("Bob Smith", salesrep.getManager().getName());
+//            break;
+//        }
+//    }
 
-    @Test
-    public void queryParentChildSelfJoinEmplMgrObeAlias_p175() throws SQLException {
-        Set<Salesrep> salesreps = new SalesrepDao(conn).queryParentChildSelfJoinEmplMgrObeAlias_p175();
-        assertTrue(salesreps.size() > 0);
-        for(Salesrep salesrep: salesreps) {
-            assertEquals("Dan Roberts", salesrep.getName());
-            assertEquals("Bob Smith", salesrep.getManager().getName());
-            break;
-        }
-    }
+//    @Test
+//    public void queryParentChildSelfJoinEmplMgrObeAlias_p175() throws SQLException {
+//        Set<Salesrep> salesreps = new SalesrepDao(conn).queryParentChildSelfJoinEmplMgrObeAlias_p175();
+//        assertTrue(salesreps.size() > 0);
+//        for(Salesrep salesrep: salesreps) {
+//            assertEquals("Dan Roberts", salesrep.getName());
+//            assertEquals("Bob Smith", salesrep.getManager().getName());
+//            break;
+//        }
+//    }
 
-    @Test
-    public void queryParentChildSelfJoinEmplPlanOverMgrPlan_p175() throws SQLException {
-        Set<Salesrep> salesreps = new SalesrepDao(conn).queryParentChildSelfJoinEmplPlanOverMgrPlan_p175();
-        assertTrue(salesreps.size() > 0);
-        for(Salesrep salesrep: salesreps) {
-            assertEquals("Dan Roberts", salesrep.getName());
-            assertEquals(300000.00, salesrep.getQuota());
-            assertEquals(200000.00, salesrep.getManager().getQuota());
-            break;
-        }
-    }
+//    @Test
+//    public void queryParentChildSelfJoinEmplPlanOverMgrPlan_p175() throws SQLException {
+//        Set<Salesrep> salesreps = new SalesrepDao(conn).queryParentChildSelfJoinEmplPlanOverMgrPlan_p175();
+//        assertTrue(salesreps.size() > 0);
+//        for(Salesrep salesrep: salesreps) {
+//            assertEquals("Dan Roberts", salesrep.getName());
+//            assertEquals(300000.00, salesrep.getQuota());
+//            assertEquals(200000.00, salesrep.getManager().getQuota());
+//            break;
+//        }
+//    }
 
-    @Test
-    public void queryParentChildSelfJoinEmplMgrDiffOffices_p176() throws SQLException {
-        Set<Salesrep> salesreps = new SalesrepDao(conn).queryParentChildSelfJoinEmplMgrDiffOffices_p176();
-        assertTrue(salesreps.size() > 0);
-        for(Salesrep salesrep: salesreps) {
-            assertEquals("Bob Smith", salesrep.getName());
-            assertEquals("Chicago", salesrep.getRepOffice().getCity());
-            assertEquals("Sam Clark", salesrep.getManager().getName());
-            assertEquals("New York", salesrep.getManager().getRepOffice().getCity());
-            break;
-        }
-    }
+//    @Test
+//    public void queryParentChildSelfJoinEmplMgrDiffOffices_p176() throws SQLException {
+//        Set<Salesrep> salesreps = new SalesrepDao(conn).queryParentChildSelfJoinEmplMgrDiffOffices_p176();
+//        assertTrue(salesreps.size() > 0);
+//        for(Salesrep salesrep: salesreps) {
+//            assertEquals("Bob Smith", salesrep.getName());
+//            assertEquals("Chicago", salesrep.getRepOffice().getCity());
+//            assertEquals("Sam Clark", salesrep.getManager().getName());
+//            assertEquals("New York", salesrep.getManager().getRepOffice().getCity());
+//            break;
+//        }
+//    }
 
-    @Test
-    public void queryParentChildNamexCity_p179() throws SQLException {
-        Set<Salesrep> salesreps = new SalesrepDao(conn).queryParentChildNamexCity_p179();
-        assertTrue(salesreps.size() > 0);
-        for(Salesrep salesrep: salesreps) {
-            assertEquals("Dan Roberts", salesrep.getName());
-            assertEquals("New York", salesrep.getRepOffice().getCity());
-            break;
-        }
-    }
+//    @Test
+//    public void queryParentChildNamexCity_p179() throws SQLException {
+//        Set<Salesrep> salesreps = new SalesrepDao(conn).queryParentChildNamexCity_p179();
+//        assertTrue(salesreps.size() > 0);
+//        for(Salesrep salesrep: salesreps) {
+//            assertEquals("Dan Roberts", salesrep.getName());
+//            assertEquals("New York", salesrep.getRepOffice().getCity());
+//            break;
+//        }
+//    }
 
     @Test
     public void queryParentChildNamesWorkingCity_p180() throws SQLException {

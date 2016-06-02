@@ -1,21 +1,77 @@
 package org.demo.home_03.dao;
 
+import org.demo.home_03.dto.OfficeDTO;
+import org.demo.home_03.dto.SalesrepDTO;
 import org.demo.home_03.model.Office;
 import org.demo.home_03.model.Salesrep;
+import org.hibernate.Session;
+import org.hibernate.transform.Transformers;
+import org.hibernate.type.StandardBasicTypes;
 
 import java.sql.*;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
  * @author dshvedchenko on 5/26/16.
  */
 public class SalesrepDao {
-    private final Connection connection;
+    private Connection connection;
+    private Session session;
 
-    public SalesrepDao(Connection connection) {
-        this.connection = connection;
+    public SalesrepDao(Session session) {
+        this.session = session;
     }
+
+
+    public List getQP122() {
+        List salesreps = session.createSQLQuery("SELECT NAME, REP_OFFICE, HIRE_DATE " +
+                "FROM SALESREPS")
+                .addScalar("NAME", StandardBasicTypes.STRING)
+                .addScalar("REP_OFFICE", StandardBasicTypes.INTEGER)
+                .addScalar("HIRE_DATE", StandardBasicTypes.DATE)
+                .list();
+        return salesreps;
+    }
+
+    public List getQP123() {
+        List salesreps = session.createSQLQuery("SELECT NAME, QUOTA, SALES " +
+                "FROM SALESREPS WHERE EMPL_NUM = 107")
+                .addScalar("NAME", StandardBasicTypes.STRING)
+                .addScalar("QUOTA", StandardBasicTypes.BIG_DECIMAL)
+                .addScalar("SALES", StandardBasicTypes.BIG_DECIMAL)
+                .list();
+        return salesreps;
+    }
+
+    public List getQP1241() {
+        List salesreps = session.createSQLQuery("SELECT AVG(SALES) AVGS FROM SALESREPS")
+                .addScalar("AVGS", StandardBasicTypes.BIG_DECIMAL)
+                .list();
+        return salesreps;
+    }
+
+    public List getQP1242() {
+        List salesreps = session.createSQLQuery("SELECT NAME, HIRE_DATE FROM SALESREPS WHERE SALES > 50000.00")
+                .addScalar("NAME", StandardBasicTypes.STRING)
+                .addScalar("HIRE_DATE", StandardBasicTypes.DATE)
+                .list();
+        return salesreps;
+    }
+
+    public List getQP1243() {
+        List salesreps = session.createSQLQuery("SELECT NAME, QUOTA, MANAGER FROM SALESREPS")
+                .addScalar("NAME", StandardBasicTypes.STRING)
+                .addScalar("QUOTA", StandardBasicTypes.BIG_DECIMAL)
+                .addScalar("MANAGER", StandardBasicTypes.INTEGER)
+                .list();
+        return salesreps;
+    }
+
+
+
+
 
     public Set<Salesrep> getParentChild_p159() {
         Set<Salesrep> salesReps = new LinkedHashSet<>();
