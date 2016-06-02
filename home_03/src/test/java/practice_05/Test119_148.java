@@ -1,6 +1,7 @@
 package practice_05;
 
 import org.demo.home_03.dao.OfficeDao;
+import org.demo.home_03.dao.ProductDao;
 import org.demo.home_03.dao.SalesrepDao;
 import org.demo.home_03.dto.OfficeDTO;
 import org.demo.home_03.dto.SalesrepDTO;
@@ -11,6 +12,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.junit.*;
+import static org.junit.Assert.*;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -48,68 +50,91 @@ public class Test119_148 {
     public void simpleP119() {
         List<OfficeDTO> list = new OfficeDao(session).getQP119();
 
-        Assert.assertNotNull(list);
-        Assert.assertEquals("New York", list.get(0).getCity());
+        assertNotNull(list);
+        assertEquals("New York", list.get(0).getCity());
     }
 
     @Test
     public void simpleP1201() {
         List<OfficeDTO> list = new OfficeDao(session).getQP1201();
-        Assert.assertNotNull(list);
-        Assert.assertEquals("New York", list.get(0).getCity());
+        assertNotNull(list);
+        assertEquals("New York", list.get(0).getCity());
     }
 
     @Test
     public void simpleP1202() {
         List<OfficeDTO> list = new OfficeDao(session).getQP1202();
-        Assert.assertNotNull(list);
-        Assert.assertEquals("Atlanta", list.get(0).getCity());
+        assertNotNull(list);
+        assertEquals("Atlanta", list.get(0).getCity());
     }
 
     @Test
     public void simpleP122() {
         List list = new SalesrepDao(session).getQP122();
-        Assert.assertNotNull(list);
+        assertNotNull(list);
         Object[] r = (Object[]) list.get(0);
-        Assert.assertEquals("Dan Roberts", (String)r[0] );
+        assertEquals("Dan Roberts", (String)r[0] );
     }
 
     @Test
     public void simpleP123() {
         List list = new SalesrepDao(session).getQP123();
-        Assert.assertNotNull(list);
+        assertNotNull(list);
         Object[] r = (Object[]) list.get(0);
-        Assert.assertEquals("Nancy Angelli", (String)r[0] );
-        Assert.assertEquals( "300000.00", ((BigDecimal)r[1]) .toString() );
+        assertEquals("Nancy Angelli", (String)r[0] );
+        assertEquals( "300000.00", ((BigDecimal)r[1]) .toString() );
     }
 
     @Test
     public void simpleP1241() {
         List list = new SalesrepDao(session).getQP1241();
-        Assert.assertNotNull(list);
+        assertNotNull(list);
         Object r =  list.get(0);
-        Assert.assertEquals("289353.200000", ((BigDecimal)r).toString() );
+        assertEquals("289353.200000", ((BigDecimal)r).toString() );
     }
 
     @Test
     public void simpleP1242() {
         List list = new SalesrepDao(session).getQP1242();
-        Assert.assertNotNull(list);
-        Assert.assertTrue(list.size() > 0);
+        assertNotNull(list);
+        assertTrue(list.size() > 0);
         Object[] r =  (Object[])list.get(0);
-        Assert.assertEquals("Dan Roberts", ((String)r[0]) );
-        Assert.assertEquals("2004-10-20", ((Date)r[1]).toString() );
+        assertEquals("Dan Roberts", ((String)r[0]) );
+        assertEquals("2004-10-20", ((Date)r[1]).toString() );
     }
 
     @Test
     public void simpleP1243() {
         List list = new SalesrepDao(session).getQP1243();
-        Assert.assertNotNull(list);
-        Assert.assertTrue(list.size() > 0);
+        assertNotNull(list);
+        assertTrue(list.size() > 0);
         Object[] r =  (Object[])list.get(0);
-        Assert.assertEquals("Dan Roberts", ((String)r[0]) );
-        Assert.assertEquals("300000.00", ((BigDecimal)r[1]).toString() );
-        Assert.assertTrue(104 == (Integer)r[2] );
+        assertEquals("Dan Roberts", ((String)r[0]) );
+        assertEquals("300000.00", ((BigDecimal)r[1]).toString() );
+        assertTrue(104 == (Integer)r[2] );
+    }
+
+    @Test
+    public void simpleP126() {
+        List list = new OfficeDao(session).getQP126();
+        assertNotNull(list);
+        assertTrue(list.size() > 0);
+        Object[] r =  (Object[])list.get(0);
+        assertEquals("New York", ((String)r[0]) );
+        assertEquals("Eastern", ((String)r[1]) );
+        assertEquals("117637.00", ((BigDecimal)r[2]).toString() );
+    }
+
+    @Test
+    public void simpleP1262() {
+        List list = new ProductDao(session).getQP1262();
+        assertNotNull(list);
+        assertTrue(list.size() > 0);
+        Object[] r =  (Object[])list.get(0);
+        assertEquals("ACI", ((String)r[0]) );
+        assertEquals("41001", ((String)r[1]) );
+        assertEquals("Size 1 Wiget", ((String)r[2]) );
+        assertEquals("15235.00", ((BigDecimal)r[3]).toString() );
     }
 }
 

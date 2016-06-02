@@ -5,6 +5,7 @@ import org.demo.home_03.model.Office;
 import org.demo.home_03.model.Salesrep;
 import org.hibernate.Session;
 import org.hibernate.transform.Transformers;
+import org.hibernate.type.StandardBasicTypes;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -57,6 +58,15 @@ public class OfficeDao {
         return offices;
     }
 
+
+    public List getQP126() {
+        List offices = session.createSQLQuery("SELECT CITY, REGION, (SALES - TARGET) debt FROM OFFICES")
+                .addScalar("CITY", StandardBasicTypes.STRING)
+                .addScalar("REGION", StandardBasicTypes.STRING)
+                .addScalar("debt", StandardBasicTypes.BIG_DECIMAL)
+                .list();
+        return offices;
+    }
 
 
     public Set<Office> getParentChildJoins_p162() {
