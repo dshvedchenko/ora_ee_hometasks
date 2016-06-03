@@ -5,6 +5,7 @@ import org.demo.home_03.dto.SalesrepDTO;
 import org.demo.home_03.model.Office;
 import org.demo.home_03.model.Salesrep;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.Transformers;
 import org.hibernate.type.StandardBasicTypes;
 
@@ -69,41 +70,27 @@ public class SalesrepDao {
         return salesreps;
     }
 
+    public List<SalesrepDTO> getP1373() {
+        List<SalesrepDTO> salesrepDTOs = session.createSQLQuery("SELECT NAME Name, QUOTA Quota, SALES Sales " +
+                "FROM SALESREPS " +
+                "WHERE REP_OFFICE IN (10,11,12)")
+                .setResultTransformer(Transformers.aliasToBean(SalesrepDTO.class))
+                .list();
+        return salesrepDTOs;
+    }
 
 
 
-
-    public Set<Salesrep> getParentChild_p159() {
-        Set<Salesrep> salesReps = new LinkedHashSet<>();
-        Statement statement = null;
+    public List<Salesrep> getParentChild_p159() {
         String sqlQuery = "SELECT EMPL_NUM, NAME, OFFICE, CITY, REGION\n" +
                 "FROM SALESREPS , OFFICES\n" +
                 "WHERE REP_OFFICE = OFFICE;";
+        List<Salesrep> salesrepList = session.createCriteria(Salesrep.class, "s")
+                .createCriteria("repOffice", "o")
+                .add(Restrictions.eqProperty("s.repOffice", "o.office"))
+                .list();
 
-        try {
-            statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery (sqlQuery);
-            if (rs.next()) {
-                Salesrep salesrep = new Salesrep();
-                salesrep.setEmplNum(rs.getInt("EMPL_NUM"));
-                salesrep.setName(rs.getString("NAME"));
-                Office office = new Office();
-                office.setOffice(rs.getInt("OFFICE"));
-                office.setCity(rs.getString("CITY"));
-                office.setRegion(rs.getString("REGION"));
-                salesrep.setRepOffice(office);
-                salesReps.add(salesrep);
-            }
-
-            rs.close();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            closeStatement(statement);
-        }
-
-        return salesReps;
+        return salesrepList;
     }
 
     public Set<Salesrep> getParentChild_p161() {

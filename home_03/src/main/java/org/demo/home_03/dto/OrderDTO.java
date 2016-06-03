@@ -19,11 +19,13 @@ public class OrderDTO {
 
     private Date orderDate;
 
-    private Customer cust;
+    private Integer cust;
 
-    private Salesrep rep;
+    private Integer rep;
 
-    private Product product;
+    private String mfr;
+
+    private String product;
 
     private Integer qty;
     private BigDecimal amount;

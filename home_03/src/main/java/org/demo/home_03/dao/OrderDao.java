@@ -1,54 +1,67 @@
 package org.demo.home_03.dao;
 
+import org.demo.home_03.dto.OrderDTO;
 import org.demo.home_03.model.*;
+import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
+import org.hibernate.sql.JoinType;
+import org.hibernate.transform.Transformers;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
  * @author dshvedchenko on 5/26/16.
  */
 public class OrderDao {
-    private final Connection connection;
+    private Connection connection = null;
+    private final Session session;
 
-    public OrderDao(Connection connection) {
-        this.connection = connection;
+    public OrderDao(Session session) {
+        this.session = session;
     }
 
-    public Set<Order> getSimple_p158() {
-        Set<Order> orders = new LinkedHashSet<>(0);
-        Statement statement = null;
+
+    public List<Order> getSimpleP135() {
+        List<Order> orders = session.createSQLQuery("SELECT ORDER_NUM, ORDER_DATE, MFR, PRODUCT, AMOUNT, CUST, QTY, REP " +
+                "FROM ORDERS " +
+                "WHERE ORDER_DATE BETWEEN '2007-10-01' and '2007-12-31'")
+                .addEntity(Order.class)
+                .list();
+        return orders;
+    }
+
+    public List<OrderDTO> getSimple1362() {
+        List<OrderDTO> orders = session.createSQLQuery("SELECT ORDER_NUM OrderNum, AMOUNT Amount " +
+                "FROM ORDERS " +
+                "WHERE AMOUNT BETWEEN 20000 and 29999")
+                .setResultTransformer(Transformers.aliasToBean(OrderDTO.class))
+                .list();
+        return orders;
+    }
+
+    public List<OrderDTO> getP138() {
+        List<OrderDTO> orders = session.createSQLQuery("SELECT ORDER_NUM OrderNum, REP Rep, AMOUNT Amount " +
+                "FROM ORDERS " )
+                .setResultTransformer(Transformers.aliasToBean(OrderDTO.class))
+                .list();
+        return orders;
+    }
+
+
+    public List<Order> getSimple_p158() {
         String sqlQuery = "SELECT ORDER_NUM, AMOUNT , COMPANY , CREDIT_LIMIT, CUST_NUM\n" +
         "FROM ORDERS, CUSTOMERS\n" +
                 "WHERE CUST = CUST_NUM";
-
-        try {
-            statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery (sqlQuery);
-            if (rs.next()) {
-                Order order = new Order();
-                order.setOrderNum( rs.getInt("ORDER_NUM"));
-                order.setAmount( rs.getBigDecimal("AMOUNT") );
-                Customer customer = new Customer();
-                customer.setCompany( rs.getString("COMPANY"));
-                customer.setCreditLimit( rs.getBigDecimal("CREDIT_LIMIT"));
-                customer.setCustNum(rs.getInt("CUST_NUM"));
-                order.setCust(customer);
-
-                orders.add(order);
-            }
-
-            rs.close();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            closeStatement(statement);
-        }
+        List<Order> orders = session.createCriteria(Order.class,"o")
+                .createCriteria("cust","c")
+                .add(Restrictions.eqProperty("o.cust", "c.custNum"))
+                .list();
 
         return orders;
     }

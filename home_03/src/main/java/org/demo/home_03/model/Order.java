@@ -21,26 +21,29 @@ public class Order {
     @Column(name = "ORDER_DATE")
     private Date orderDate;
 
-    @ManyToOne
+    @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(
             name = "CUST"
     )
     private Customer cust;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(
             name = "REP"
     )
     private Salesrep rep;
 
-    @ManyToOne
+    @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumns(
             {@JoinColumn(name = "MFR", referencedColumnName = "MFR_ID")
                     , @JoinColumn(name = "PRODUCT", referencedColumnName = "PRODUCT_ID")}
     )
     private Product product;
 
+    @Column( name = "QTY")
     private Integer qty;
+
+    @Column (name = "AMOUNT")
     private BigDecimal amount;
 
     @Override

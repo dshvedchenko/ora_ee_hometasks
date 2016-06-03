@@ -1,11 +1,14 @@
 package practice_05;
 
 import org.demo.home_03.dao.OfficeDao;
+import org.demo.home_03.dao.OrderDao;
 import org.demo.home_03.dao.ProductDao;
 import org.demo.home_03.dao.SalesrepDao;
 import org.demo.home_03.dto.OfficeDTO;
+import org.demo.home_03.dto.OrderDTO;
 import org.demo.home_03.dto.SalesrepDTO;
 import org.demo.home_03.model.Office;
+import org.demo.home_03.model.Order;
 import org.demo.home_03.model.Salesrep;
 import org.demo.home_03.util.HibernateUtil;
 import org.hibernate.Session;
@@ -136,5 +139,40 @@ public class Test119_148 {
         assertEquals("Size 1 Wiget", ((String)r[2]) );
         assertEquals("15235.00", ((BigDecimal)r[3]).toString() );
     }
+
+    @Test
+    public void sompleP135() {
+        List<Order> orders = new OrderDao(session).getSimpleP135();
+        assertNotNull(orders);
+        assertTrue(orders.size() > 0);
+        assertEquals(Integer.valueOf(112961), orders.get(0).getOrderNum());
+    }
+
+    @Test
+    public void simpleP1362() {
+        List<OrderDTO> orders = new OrderDao(session).getSimple1362();
+        assertNotNull(orders);
+        assertTrue(orders.size() > 0);
+        assertEquals(Integer.valueOf(112987), orders.get(0).getOrderNum());
+        assertEquals(new BigDecimal("27500.00"), orders.get(0).getAmount());
+    }
+
+    @Test
+    public void simpleP1373() {
+        List<SalesrepDTO> salesrepDTOs = new SalesrepDao(session).getP1373();
+        assertNotNull(salesrepDTOs);
+        assertTrue(salesrepDTOs.size() > 0);
+        assertEquals("Dan Roberts", salesrepDTOs.get(0).getName());
+    }
+
+    @Test
+    public void simpleP138() {
+        List<OrderDTO> orderDTOs = new OrderDao(session).getP138();
+        assertNotNull(orderDTOs);
+        assertTrue(orderDTOs.size() > 0);
+        assertEquals(Integer.valueOf(112961), orderDTOs.get(0).getOrderNum());
+    }
+
+
 }
 

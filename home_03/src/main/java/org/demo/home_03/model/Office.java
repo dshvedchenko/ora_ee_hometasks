@@ -16,6 +16,7 @@ import java.util.Set;
 public class Office {
 
     @Id
+    @Column (name = "OFFICE")
     private Integer office;
 
     @Column (name = "CITY")

@@ -7,11 +7,17 @@ import org.demo.home_03.db.DataSource;
 import org.demo.home_03.model.Office;
 import org.demo.home_03.model.Order;
 import org.demo.home_03.model.Salesrep;
+import org.demo.home_03.util.HibernateUtil;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.junit.*;
 import static org.junit.Assert.*;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Set;
 
 import static org.junit.Assert.assertNotNull;
@@ -22,7 +28,9 @@ import static org.junit.Assert.assertNotNull;
 public class TestJoins {
 
     static DataSource dataSource;
-    Connection conn;
+    Connection conn = null;
+    static SessionFactory sessionFactory;
+    Session session;
 
     OrderDao orderDao;
     SalesrepDao salesrepDao;
@@ -32,6 +40,7 @@ public class TestJoins {
     public static void initSuite() throws SQLException {
         dataSource = DataSource.INSTANCE;
         assertNotNull(dataSource);
+        sessionFactory = HibernateUtil.getSessionFactory();
     }
 
     @AfterClass
@@ -41,43 +50,42 @@ public class TestJoins {
 
     @Before
     public void initRes() throws SQLException {
-        conn = dataSource.getConnection();
-
+        session = sessionFactory.openSession();
     }
 
     @After
     public void releaseRes() throws SQLException {
-        conn.close();
+        session.close();
     }
 
     @Test
     public void querySimpleJoin_p158() throws SQLException {
 
-        Set<Order> orders = new OrderDao(conn).getSimple_p158();
+        List<Order> orders = new OrderDao(session).getSimple_p158();
 
         for( Order order : orders) {
-            assertTrue(112989 == order.getOrderNum());
-            assertEquals(1458.00, order.getAmount());
+            assertEquals( Integer.valueOf(112989), order.getOrderNum());
+            assertEquals(new BigDecimal("1458.00"), order.getAmount());
             assertEquals("Jones Mfg.", order.getCust().getCompany());
-            assertEquals(65000.00, order.getCust().getCreditLimit());
+            assertEquals(new BigDecimal("65000.00"), order.getCust().getCreditLimit());
 
             break;
         }
     }
 
-//    @Test
-//    public void queryParentChild_p159() throws SQLException {
-//
-//        Set<Salesrep> salesreps = new SalesrepDao(conn).getParentChild_p159();
-//
-//        for(Salesrep salesrep: salesreps) {
-//            assertEquals("Sam Clark", salesrep.getName());
-//            assertEquals("New York", salesrep.getRepOffice().getCity());
-//            assertEquals("Eastern", salesrep.getRepOffice().getRegion());
-//
-//            break;
-//        }
-//    }
+    @Test
+    public void queryParentChild_p159() throws SQLException {
+
+        List<Salesrep> salesreps = new SalesrepDao(session).getParentChild_p159();
+
+        for(Salesrep salesrep: salesreps) {
+            assertEquals("Sam Clark", salesrep.getName());
+            assertEquals("New York", salesrep.getRepOffice().getCity());
+            assertEquals("Eastern", salesrep.getRepOffice().getRegion());
+
+            break;
+        }
+    }
 
 //    @Test
 //    public void queryParentChild_p161() throws SQLException {
@@ -207,7 +215,7 @@ public class TestJoins {
 
     @Test
     public void queryParentChildJoin3Table_p165() throws SQLException {
-        Set<Order> orders = new OrderDao(conn).getParentChildJoin3Table_p165();
+        Set<Order> orders = new OrderDao(session).getParentChildJoin3Table_p165();
 
         assertTrue(orders.size() > 0);
 
@@ -222,7 +230,7 @@ public class TestJoins {
 
     @Test
     public void queryParentChildJoin3TableAlt_p165() throws SQLException {
-        Set<Order> orders = new OrderDao(conn).getParentChildJoin3TableAlt_p165();
+        Set<Order> orders = new OrderDao(session).getParentChildJoin3TableAlt_p165();
         assertTrue(orders.size() > 0);
 
         for(Order order : orders) {
@@ -235,7 +243,7 @@ public class TestJoins {
 
     @Test
     public void queryParentChildJoin3TableCustRep_p166() throws SQLException {
-        Set<Order> orders = new OrderDao(conn).getParentChildJoin3TableCustRep_p166();
+        Set<Order> orders = new OrderDao(session).getParentChildJoin3TableCustRep_p166();
         assertTrue(orders.size() > 0);
 
         for(Order order : orders) {
@@ -248,7 +256,7 @@ public class TestJoins {
 
     @Test
     public void queryParentChildJoin3TableCustRepOffice_p167() throws SQLException {
-        Set<Order> orders = new OrderDao(conn).getParentChildJoin3TableCustRepOffice_p167();
+        Set<Order> orders = new OrderDao(session).getParentChildJoin3TableCustRepOffice_p167();
         assertTrue(orders.size() > 0);
 
         for(Order order : orders) {
@@ -263,7 +271,7 @@ public class TestJoins {
     @Test
     public void queryParentChildJoinOrderHire_p169() throws SQLException {
 
-        Set<Order> orders = new OrderDao(conn).getParentChildJoinOrderHire_p169();
+        Set<Order> orders = new OrderDao(session).getParentChildJoinOrderHire_p169();
         assertTrue(orders.size() > 0);
 
         for(Order order : orders) {
