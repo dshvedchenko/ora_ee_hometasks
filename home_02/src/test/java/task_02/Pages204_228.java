@@ -1,7 +1,8 @@
-package task_02.util;
+package task_02;
 
 import org.junit.*;
 import task_02.db.DataSource;
+import task_02.util.ValidateRowgainstValues;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

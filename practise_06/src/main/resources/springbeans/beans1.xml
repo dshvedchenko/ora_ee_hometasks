@@ -1,0 +1,28 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean id="helloWorld" class="test_01.HelloWorld"  autowire="byName">
+        <constructor-arg>
+            <ref bean="tricks" />
+        </constructor-arg>
+        <property name="states">
+            <list>
+                <value>Ukraine</value>
+                <value>India</value>
+                <value>USA</value>
+            </list>
+        </property>
+
+        <property name="msGen" ref="xmlGen" />
+    </bean>
+
+    <bean id="jsonGen" class="test_01.JSONMessGe" />
+    <bean id="xmlGen" class="test_01.XMLMessGe"  />
+
+    <bean id="tricks" class="test_01.TrickyBean">
+        <property name="name" value="KuKU"/>
+    </bean>
+
+</beans>
