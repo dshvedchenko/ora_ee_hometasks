@@ -1,70 +1,58 @@
 package home_03;
 
-import org.demo.home_03.dao.OfficeDao;
-import org.demo.home_03.dao.OrderDao;
-import org.demo.home_03.dao.SalesrepDao;
-import org.demo.home_03.db.DataSource;
-import org.demo.home_03.model.Office;
+import org.demo.home_03.dao.DaoFacade;
+import org.demo.home_03.dao.SessionHolder;
 import org.demo.home_03.model.Order;
 import org.demo.home_03.model.Salesrep;
 import org.demo.home_03.util.HibernateUtil;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.*;
-import static org.junit.Assert.*;
 
 import java.math.BigDecimal;
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author dshvedchenko on 5/26/16.
  */
 public class TestJoins {
 
-    static DataSource dataSource;
-    Connection conn = null;
     static SessionFactory sessionFactory;
-    Session session;
-
-    OrderDao orderDao;
-    SalesrepDao salesrepDao;
-    OfficeDao officeDao;
+    SessionHolder sessionHolder;
+    DaoFacade daoFacade;
 
     @BeforeClass
     public static void initSuite() throws SQLException {
-        dataSource = DataSource.INSTANCE;
-        assertNotNull(dataSource);
         sessionFactory = HibernateUtil.getSessionFactory();
     }
 
     @AfterClass
     public static void closeSuite() {
-        dataSource.destroy();
+        sessionFactory.close();
     }
 
     @Before
     public void initRes() throws SQLException {
-        session = sessionFactory.openSession();
+        sessionHolder = new SessionHolder(sessionFactory.openSession());
+        daoFacade = new DaoFacade(sessionHolder);
     }
 
     @After
     public void releaseRes() throws SQLException {
-        session.close();
+        sessionHolder.obtainSession().close();
     }
 
     @Test
     public void querySimpleJoin_p158() throws SQLException {
 
-        List<Order> orders = new OrderDao(session).getSimple_p158();
+        List<Order> orders = daoFacade.getOrderDao().getSimple_p158();
 
-        for( Order order : orders) {
-            assertEquals( Integer.valueOf(112989), order.getOrderNum());
+        for (Order order : orders) {
+            assertEquals(Integer.valueOf(112989), order.getOrderNum());
             assertEquals(new BigDecimal("1458.00"), order.getAmount());
             assertEquals("Jones Mfg.", order.getCust().getCompany());
             assertEquals(new BigDecimal("65000.00"), order.getCust().getCreditLimit());
@@ -76,9 +64,9 @@ public class TestJoins {
     @Test
     public void queryParentChild_p159() throws SQLException {
 
-        List<Salesrep> salesreps = new SalesrepDao(session).getParentChild_p159();
+        List<Salesrep> salesreps = daoFacade.getSalesrepDao().getParentChild_p159();
 
-        for(Salesrep salesrep: salesreps) {
+        for (Salesrep salesrep : salesreps) {
             assertEquals("Sam Clark", salesrep.getName());
             assertEquals("New York", salesrep.getRepOffice().getCity());
             assertEquals("Eastern", salesrep.getRepOffice().getRegion());
@@ -155,7 +143,7 @@ public class TestJoins {
                 "FROM OFFICES JOIN SALESREPS ON\n" +
                 "MGR = EMPL_NUM WHERE TARGET > 60000;";
 
-   //     ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"New York", "Sam Clark", "VP Sales"});
+        //     ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"New York", "Sam Clark", "VP Sales"});
     }
 
 //    @Test
@@ -215,11 +203,11 @@ public class TestJoins {
 
     @Test
     public void queryParentChildJoin3Table_p165() throws SQLException {
-        Set<Order> orders = new OrderDao(session).getParentChildJoin3Table_p165();
+        Set<Order> orders = daoFacade.getOrderDao().getParentChildJoin3Table_p165();
 
         assertTrue(orders.size() > 0);
 
-        for(Order order : orders) {
+        for (Order order : orders) {
             assertTrue(112987 == order.getOrderNum());
             assertEquals(27500.00, order.getAmount());
             assertEquals("Acme Mfg.", order.getCust().getCompany());
@@ -230,10 +218,10 @@ public class TestJoins {
 
     @Test
     public void queryParentChildJoin3TableAlt_p165() throws SQLException {
-        Set<Order> orders = new OrderDao(session).getParentChildJoin3TableAlt_p165();
+        Set<Order> orders = daoFacade.getOrderDao().getParentChildJoin3TableAlt_p165();
         assertTrue(orders.size() > 0);
 
-        for(Order order : orders) {
+        for (Order order : orders) {
             assertTrue(112987 == order.getOrderNum());
             assertEquals(27500.00, order.getAmount());
             assertEquals("Acme Mfg.", order.getCust().getCompany());
@@ -243,10 +231,10 @@ public class TestJoins {
 
     @Test
     public void queryParentChildJoin3TableCustRep_p166() throws SQLException {
-        Set<Order> orders = new OrderDao(session).getParentChildJoin3TableCustRep_p166();
+        Set<Order> orders = daoFacade.getOrderDao().getParentChildJoin3TableCustRep_p166();
         assertTrue(orders.size() > 0);
 
-        for(Order order : orders) {
+        for (Order order : orders) {
             assertTrue(113069 == order.getOrderNum());
             assertEquals(31350.00, order.getAmount());
             assertEquals("Chen Associates", order.getCust().getCompany());
@@ -256,10 +244,10 @@ public class TestJoins {
 
     @Test
     public void queryParentChildJoin3TableCustRepOffice_p167() throws SQLException {
-        Set<Order> orders = new OrderDao(session).getParentChildJoin3TableCustRepOffice_p167();
+        Set<Order> orders = daoFacade.getOrderDao().getParentChildJoin3TableCustRepOffice_p167();
         assertTrue(orders.size() > 0);
 
-        for(Order order : orders) {
+        for (Order order : orders) {
             assertTrue(112961 == order.getOrderNum());
             assertEquals(31500.00, order.getAmount());
             assertEquals("J.P. Sinclair", order.getCust().getCompany());
@@ -271,10 +259,10 @@ public class TestJoins {
     @Test
     public void queryParentChildJoinOrderHire_p169() throws SQLException {
 
-        Set<Order> orders = new OrderDao(session).getParentChildJoinOrderHire_p169();
+        Set<Order> orders = daoFacade.getOrderDao().getParentChildJoinOrderHire_p169();
         assertTrue(orders.size() > 0);
 
-        for(Order order : orders) {
+        for (Order order : orders) {
             assertTrue(112968 == order.getOrderNum());
             assertEquals(3978.00, order.getAmount());
             assertEquals("2007-10-12", order.getOrderDate().toString());
@@ -426,7 +414,7 @@ public class TestJoins {
 
         String sqlQuery = "SELECT NAME, CITY FROM SALESREPS, OFFICES WHERE REP_OFFICE = OFFICE";
 
-   //     ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"Sam Clark", "New York"});
+        //     ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"Sam Clark", "New York"});
     }
 
     @Test
@@ -438,14 +426,15 @@ public class TestJoins {
                 "WHERE CUST_NUM = 2103\n" +
                 "ORDER BY ORDER_NUM;";
 
-    //    ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"Acme Mfg.", "112963","3276.00"});
+        //    ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"Acme Mfg.", "112963","3276.00"});
     }
+
     @Test
     public void queryEmplRepOffice_p182() throws SQLException {
 
         String sqlQuery = "SELECT NAME, REP_OFFICE FROM SALESREPS";
 
-    //    ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"Dan Roberts", "12"});
+        //    ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"Dan Roberts", "12"});
     }
 
     @Test
@@ -453,7 +442,7 @@ public class TestJoins {
 
         String sqlQuery = "SELECT NAME, CITY FROM SALESREPS JOIN OFFICES ON REP_OFFICE = OFFICE";
 
-    //    ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"Sam Clark", "New York"});
+        //    ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"Sam Clark", "New York"});
     }
 
     @Test
@@ -461,7 +450,7 @@ public class TestJoins {
 
         String sqlQuery = "SELECT NAME, CITY FROM SALESREPS LEFT JOIN OFFICES ON REP_OFFICE = OFFICE";
 
-    //    ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"Dan Roberts", "Chicago"});
+        //    ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"Dan Roberts", "Chicago"});
     }
 
     @Test
@@ -469,7 +458,7 @@ public class TestJoins {
 
         String sqlQuery = "SELECT NAME, CITY FROM SALESREPS LEFT JOIN OFFICES ON REP_OFFICE = OFFICE";
 
-    //    ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"Dan Roberts", "Chicago"});
+        //    ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"Dan Roberts", "Chicago"});
     }
 
     @Test
@@ -477,10 +466,8 @@ public class TestJoins {
 
         String sqlQuery = "SELECT CITY, NAME FROM OFFICES LEFT JOIN SALESREPS ON REP_OFFICE = OFFICE";
 
-     //   ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"New York", "Sam Clark"});
+        //   ValidateRowgainstValues.testOnlyOneRow(rs, new String[]{"New York", "Sam Clark"});
     }
-
-
 
 
 }

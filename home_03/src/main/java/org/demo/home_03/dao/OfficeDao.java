@@ -20,22 +20,23 @@ import java.util.Set;
  */
 public class OfficeDao {
     private Connection connection = null;
-    private final Session session;
+    private SessionHolder sessionHolder;
 
-    public OfficeDao(Session session) {
-        this.session = session;
+    OfficeDao(SessionHolder sessionHolder) {
+        this.sessionHolder = sessionHolder;
+
     }
 
     public List<OfficeDTO> getQP119() {
         List<OfficeDTO> offices;
-        offices = session.createSQLQuery("SELECT CITY City,TARGET Target,SALES Sales FROM OFFICES")
+        offices = sessionHolder.obtainSession().createSQLQuery("SELECT CITY City,TARGET Target,SALES Sales FROM OFFICES")
                 .setResultTransformer(Transformers.aliasToBean(OfficeDTO.class))
                 .list();
         return offices;
     }
 
     public List<OfficeDTO> getQP1201() {
-        List<OfficeDTO> offices = session.createSQLQuery("SELECT CITY City" +
+        List<OfficeDTO> offices = sessionHolder.obtainSession().createSQLQuery("SELECT CITY City" +
                 ",TARGET Target," +
                 "SALES Sales " +
                 "FROM OFFICES " +
@@ -46,7 +47,7 @@ public class OfficeDao {
     }
 
     public List<OfficeDTO> getQP1202() {
-        List<OfficeDTO> offices = session.createSQLQuery("SELECT CITY City" +
+        List<OfficeDTO> offices = sessionHolder.obtainSession().createSQLQuery("SELECT CITY City" +
                 ",TARGET Target," +
                 "SALES Sales " +
                 "FROM OFFICES " +
@@ -60,7 +61,7 @@ public class OfficeDao {
 
 
     public List getQP126() {
-        List offices = session.createSQLQuery("SELECT CITY, REGION, (SALES - TARGET) debt FROM OFFICES")
+        List offices = sessionHolder.obtainSession().createSQLQuery("SELECT CITY, REGION, (SALES - TARGET) debt FROM OFFICES")
                 .addScalar("CITY", StandardBasicTypes.STRING)
                 .addScalar("REGION", StandardBasicTypes.STRING)
                 .addScalar("debt", StandardBasicTypes.BIG_DECIMAL)

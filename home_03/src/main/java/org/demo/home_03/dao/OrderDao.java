@@ -19,16 +19,18 @@ import java.util.Set;
  * @author dshvedchenko on 5/26/16.
  */
 public class OrderDao {
-    private Connection connection = null;
-    private final Session session;
 
-    public OrderDao(Session session) {
-        this.session = session;
+    private Connection connection;
+
+    private SessionHolder sessionHolder;
+
+    OrderDao(SessionHolder sessionHolder) {
+        this.sessionHolder = sessionHolder;
     }
 
 
     public List<Order> getSimpleP135() {
-        List<Order> orders = session.createSQLQuery("SELECT ORDER_NUM, ORDER_DATE, MFR, PRODUCT, AMOUNT, CUST, QTY, REP " +
+        List<Order> orders = sessionHolder.obtainSession().createSQLQuery("SELECT ORDER_NUM, ORDER_DATE, MFR, PRODUCT, AMOUNT, CUST, QTY, REP " +
                 "FROM ORDERS " +
                 "WHERE ORDER_DATE BETWEEN '2007-10-01' and '2007-12-31'")
                 .addEntity(Order.class)
@@ -37,7 +39,7 @@ public class OrderDao {
     }
 
     public List<OrderDTO> getSimple1362() {
-        List<OrderDTO> orders = session.createSQLQuery("SELECT ORDER_NUM OrderNum, AMOUNT Amount " +
+        List<OrderDTO> orders = sessionHolder.obtainSession().createSQLQuery("SELECT ORDER_NUM OrderNum, AMOUNT Amount " +
                 "FROM ORDERS " +
                 "WHERE AMOUNT BETWEEN 20000 and 29999")
                 .setResultTransformer(Transformers.aliasToBean(OrderDTO.class))
@@ -46,7 +48,7 @@ public class OrderDao {
     }
 
     public List<OrderDTO> getP138() {
-        List<OrderDTO> orders = session.createSQLQuery("SELECT ORDER_NUM OrderNum, REP Rep, AMOUNT Amount " +
+        List<OrderDTO> orders = sessionHolder.obtainSession().createSQLQuery("SELECT ORDER_NUM OrderNum, REP Rep, AMOUNT Amount " +
                 "FROM ORDERS " )
                 .setResultTransformer(Transformers.aliasToBean(OrderDTO.class))
                 .list();
@@ -58,7 +60,7 @@ public class OrderDao {
         String sqlQuery = "SELECT ORDER_NUM, AMOUNT , COMPANY , CREDIT_LIMIT, CUST_NUM\n" +
         "FROM ORDERS, CUSTOMERS\n" +
                 "WHERE CUST = CUST_NUM";
-        List<Order> orders = session.createCriteria(Order.class,"o")
+        List<Order> orders = sessionHolder.obtainSession().createCriteria(Order.class, "o")
                 .createCriteria("cust","c")
                 .add(Restrictions.eqProperty("o.cust", "c.custNum"))
                 .list();

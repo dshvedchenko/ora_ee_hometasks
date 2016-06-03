@@ -18,16 +18,16 @@ import java.util.Set;
  * @author dshvedchenko on 5/26/16.
  */
 public class SalesrepDao {
-    private Connection connection;
-    private Session session;
+    private Connection connection = null;
+    private SessionHolder sessionHolder;
 
-    public SalesrepDao(Session session) {
-        this.session = session;
+    SalesrepDao(SessionHolder sessionHolder) {
+        this.sessionHolder = sessionHolder;
+
     }
 
-
     public List getQP122() {
-        List salesreps = session.createSQLQuery("SELECT NAME, REP_OFFICE, HIRE_DATE " +
+        List salesreps = sessionHolder.obtainSession().createSQLQuery("SELECT NAME, REP_OFFICE, HIRE_DATE " +
                 "FROM SALESREPS")
                 .addScalar("NAME", StandardBasicTypes.STRING)
                 .addScalar("REP_OFFICE", StandardBasicTypes.INTEGER)
@@ -37,7 +37,7 @@ public class SalesrepDao {
     }
 
     public List getQP123() {
-        List salesreps = session.createSQLQuery("SELECT NAME, QUOTA, SALES " +
+        List salesreps = sessionHolder.obtainSession().createSQLQuery("SELECT NAME, QUOTA, SALES " +
                 "FROM SALESREPS WHERE EMPL_NUM = 107")
                 .addScalar("NAME", StandardBasicTypes.STRING)
                 .addScalar("QUOTA", StandardBasicTypes.BIG_DECIMAL)
@@ -47,14 +47,14 @@ public class SalesrepDao {
     }
 
     public List getQP1241() {
-        List salesreps = session.createSQLQuery("SELECT AVG(SALES) AVGS FROM SALESREPS")
+        List salesreps = sessionHolder.obtainSession().createSQLQuery("SELECT AVG(SALES) AVGS FROM SALESREPS")
                 .addScalar("AVGS", StandardBasicTypes.BIG_DECIMAL)
                 .list();
         return salesreps;
     }
 
     public List getQP1242() {
-        List salesreps = session.createSQLQuery("SELECT NAME, HIRE_DATE FROM SALESREPS WHERE SALES > 50000.00")
+        List salesreps = sessionHolder.obtainSession().createSQLQuery("SELECT NAME, HIRE_DATE FROM SALESREPS WHERE SALES > 50000.00")
                 .addScalar("NAME", StandardBasicTypes.STRING)
                 .addScalar("HIRE_DATE", StandardBasicTypes.DATE)
                 .list();
@@ -62,7 +62,7 @@ public class SalesrepDao {
     }
 
     public List getQP1243() {
-        List salesreps = session.createSQLQuery("SELECT NAME, QUOTA, MANAGER FROM SALESREPS")
+        List salesreps = sessionHolder.obtainSession().createSQLQuery("SELECT NAME, QUOTA, MANAGER FROM SALESREPS")
                 .addScalar("NAME", StandardBasicTypes.STRING)
                 .addScalar("QUOTA", StandardBasicTypes.BIG_DECIMAL)
                 .addScalar("MANAGER", StandardBasicTypes.INTEGER)
@@ -71,7 +71,7 @@ public class SalesrepDao {
     }
 
     public List<SalesrepDTO> getP1373() {
-        List<SalesrepDTO> salesrepDTOs = session.createSQLQuery("SELECT NAME Name, QUOTA Quota, SALES Sales " +
+        List<SalesrepDTO> salesrepDTOs = sessionHolder.obtainSession().createSQLQuery("SELECT NAME Name, QUOTA Quota, SALES Sales " +
                 "FROM SALESREPS " +
                 "WHERE REP_OFFICE IN (10,11,12)")
                 .setResultTransformer(Transformers.aliasToBean(SalesrepDTO.class))
@@ -85,7 +85,7 @@ public class SalesrepDao {
         String sqlQuery = "SELECT EMPL_NUM, NAME, OFFICE, CITY, REGION\n" +
                 "FROM SALESREPS , OFFICES\n" +
                 "WHERE REP_OFFICE = OFFICE;";
-        List<Salesrep> salesrepList = session.createCriteria(Salesrep.class, "s")
+        List<Salesrep> salesrepList = sessionHolder.obtainSession().createCriteria(Salesrep.class, "s")
                 .createCriteria("repOffice", "o")
                 .add(Restrictions.eqProperty("s.repOffice", "o.office"))
                 .list();
